@@ -8,6 +8,7 @@ django = "*"
 pandas = "*"
 django-bootstrap5 = "*"
 django-bootstrap-v5 = "*"
+fontawesomefree = "*"
 
 [dev-packages]
 

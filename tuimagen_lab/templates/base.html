@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,6 +8,10 @@
     <!-- Bootstrap CSS -->
     {% load bootstrap5  %}
     {% bootstrap_css %}
+    <!-- Bootstrap Icons CSS -->
+    <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
     {% block head %}
     <!-- Aquí puedes añadir estilos CSS comunes, scripts JS, etc. -->
     {% endblock %}
@@ -21,5 +26,7 @@
     {% include "footer.html" %}
     <!-- Bootstrap JS and Popper.js -->
     {% bootstrap_javascript %}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script>
 </body>
 </html>

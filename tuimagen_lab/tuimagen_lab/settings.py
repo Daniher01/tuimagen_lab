@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     #personalizado
     'gestion',
     'bootstrap5',
+    'fontawesomefree',
 ]
 
 MIDDLEWARE = [
