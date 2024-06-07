@@ -5,6 +5,7 @@
 </head>
 <body>
     <h1>Listado de Trabajos</h1>
+    <a href="{% url 'crear_trabajo'%}">crear un trabajo</a>
     <ul>
         {% for trabajo in trabajos %}
             <li>

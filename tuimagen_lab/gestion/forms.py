@@ -1,5 +1,5 @@
 from django import forms
-from .models import Trabajo, TrabajoPieza, Paciente, Dentista, Material, Pieza
+from .models import Trabajo, TrabajoPieza, Paciente, Dentista, Material
 
 class DateInput(forms.DateInput):
     input_type = 'date'
@@ -7,7 +7,7 @@ class DateInput(forms.DateInput):
 class PacienteForm(forms.ModelForm):
     class Meta:
         model = Paciente
-        fields = ['nombre', 'rut']
+        fields = ['rut', 'nombre']
 
 class TrabajoForm(forms.ModelForm):
     class Meta:
