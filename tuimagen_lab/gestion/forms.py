@@ -1,19 +1,24 @@
 from django import forms
-from .models import Trabajo, TrabajoPieza, Paciente, Dentista, Material
+from .models import Trabajo, TrabajoPieza, Paciente, Dentista
 
-class DateInput(forms.DateInput):
-    input_type = 'date'
+class DentistaForm(forms.ModelForm):
+    class Meta:
+        model = Dentista
+        fields = ['nombre']
 
 class PacienteForm(forms.ModelForm):
     class Meta:
         model = Paciente
-        fields = ['rut', 'nombre']
+        fields = ['nombre', 'rut']
+
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 class TrabajoForm(forms.ModelForm):
     class Meta:
         model = Trabajo
-        fields = ['fecha_entrega', 'dentista']
-        exclude = ['estado', 'paciente']
+        fields = ['fecha_entrega']
+        exclude = ['estado', 'paciente', 'dentista']  # Excluir 'dentista' si se maneja por separado
         widgets = {
             'fecha_entrega': DateInput(),
         }
