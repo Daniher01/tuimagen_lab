@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Detalle del Trabajo</title>
+</head>
+<body>
+    <h1>Detalle del Trabajo</h1>
+    <p>Paciente: {{ trabajo.paciente.nombre }}</p>
+    <p>RUT: {{ trabajo.paciente.rut }}</p>
+    <p>Dentista: {{ trabajo.dentista.nombre }}</p>
+    <p>Fecha de Creación: {{ trabajo.fecha_creacion }}</p>
+    <p>Fecha de Entrega: {{ trabajo.fecha_entrega }}</p>
+    <p>Estado: {{ trabajo.estado }}</p>
+    <h2>Piezas y Materiales</h2>
+    <ul>
+        {% for pieza in trabajo.trabajo_piezas.all %}
+            <li>Pieza: {{ pieza.pieza.nombre }} - Material: {{ pieza.material.nombre }}</li>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'listar_trabajos' %}">Volver al Listado de Trabajos</a>
+</body>
+</html>
