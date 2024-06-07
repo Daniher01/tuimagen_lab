@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Detalle Trabajo{% endblock %}
+
+{% block head %}
+<!-- Aquí puedes añadir estilos o scripts específicos para esta vista -->
+{% endblock %}
+
+{% block content %}
+<h1>Listado de Trabajos</h1>
+<a href="{% url 'crear_trabajo'%}">crear un trabajo</a>
+<ul>
+    {% for trabajo in trabajos %}
+        <li>
+            <a href="{% url 'detalle_trabajo' trabajo.id %}">
+                Trabajo para {{ trabajo.paciente.nombre }} con el doctor {{ trabajo.dentista.nombre }} - {{ trabajo.fecha_entrega }} ({{ trabajo.estado }})
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock content %}
+

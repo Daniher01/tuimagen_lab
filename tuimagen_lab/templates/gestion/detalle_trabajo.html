@@ -1,9 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Detalle del Trabajo</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block title %}Detalle Trabajo{% endblock %}
+
+{% block head %}
+<!-- Aquí puedes añadir estilos o scripts específicos para esta vista -->
+{% endblock %}
+
+{% block content %}
     <h1>Detalle del Trabajo</h1>
     <p>Paciente: {{ trabajo.paciente.nombre }}</p>
     <p>RUT: {{ trabajo.paciente.rut }}</p>
@@ -18,5 +21,5 @@
         {% endfor %}
     </ul>
     <a href="{% url 'listar_trabajos' %}">Volver al Listado de Trabajos</a>
-</body>
-</html>
+{% endblock content %}
+

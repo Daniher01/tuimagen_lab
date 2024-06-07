@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block title %}Crear Trabajo{% endblock %}
+
+{% block head %}
+<!-- Aquí puedes añadir estilos o scripts específicos para esta vista -->
+{% endblock %}
+
+{% block content %}
+<h1>Crear Trabajo</h1>
+<form method="post">
+    {% csrf_token %}
+    <h2>Datos del Paciente</h2>
+    {{ paciente_form.as_p }}
+    
+    <h2>Datos del Dentista</h2>
+    {{ dentista_form.as_p }}
+    
+    <h2>Datos del Trabajo</h2>
+    {{ trabajo_form.as_p }}
+    
+    <h2>Piezas y Materiales</h2>
+    {{ trabajo_pieza_formset.management_form }}
+    {% for form in trabajo_pieza_formset %}
+        {{ form.as_p }}
+    {% endfor %}
+    
+    <button type="submit">Guardar</button>
+</form>
+{% endblock %}

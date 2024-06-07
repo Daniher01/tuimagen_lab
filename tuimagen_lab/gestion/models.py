@@ -40,7 +40,7 @@ class Trabajo(models.Model):
     estado = models.CharField(max_length=20, choices=ESTADOS, default='EN_PROCESO')
 
     def __str__(self):
-        return f'Trabajo para: {self.paciente.nombre} con el doctor: {self.dentista.nombre} para el día: {self.fecha_entrega} actualmente está: {self.estado}'
+        return f'Trabajo {self.id} para: {self.paciente.nombre} con el doctor: {self.dentista.nombre} para el día: {self.fecha_entrega} actualmente está: {self.estado}'
 
 class TrabajoPieza(models.Model):
     trabajo = models.ForeignKey(Trabajo, on_delete=models.CASCADE, related_name='trabajo_piezas')

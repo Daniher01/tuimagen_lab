@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Tu Imagen Lab{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}
+    <!-- Aquí puedes añadir estilos CSS comunes, scripts JS, etc. -->
+    {% endblock %}
+</head>
+<body>
+    <header>
+        <!-- Aquí puedes añadir un header común -->
+        <h1>Bienvenido a Tu Imagen Lab</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'crear_trabajo' %}">Crear Trabajo</a></li>
+                <li><a href="{% url 'listar_trabajos' %}">Listar Trabajos</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <!-- Aquí se incluirá el contenido específico de cada vista -->
+        {% endblock %}
+    </main>
+
+    <footer>
+        <!-- Aquí puedes añadir un footer común -->
+        <p>&copy; 2024 Tu Imagen Lab. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>
