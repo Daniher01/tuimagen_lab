@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from .choices import PIEZAS, MATERIALES
 
 class Paciente(models.Model):
     nombre = models.CharField(max_length=100)
@@ -15,13 +16,13 @@ class Dentista(models.Model):
         return self.nombre
 
 class Material(models.Model):
-    nombre = models.CharField(max_length=100)
+    nombre = models.CharField(max_length=100, choices=MATERIALES)
 
     def __str__(self):
         return self.nombre
 
 class Pieza(models.Model):
-    nombre = models.CharField(max_length=5)  # Ejemplo: 1.1, 1.2, etc.
+    nombre = models.CharField(max_length=5, choices=PIEZAS)  # Ejemplo: 1.1, 1.2, etc.
 
     def __str__(self):
         return self.nombre
