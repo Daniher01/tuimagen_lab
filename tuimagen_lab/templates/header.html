@@ -1,0 +1,12 @@
+<header>
+    <h1>Bienvenido a Tu Imagen Lab</h1>
+    <nav>
+        <ul class="nav">
+            {% if user.is_authenticated %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'crear_trabajo' %}">Crear Trabajo</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'listar_trabajos' %}">Listar Trabajos</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>

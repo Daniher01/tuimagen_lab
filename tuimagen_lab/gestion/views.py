@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 from .models import Trabajo, TrabajoPieza, Paciente, Dentista
 from .forms import TrabajoForm, TrabajoPiezaForm, PacienteForm, DentistaForm
 
+@login_required
 def crear_trabajo(request):
     TrabajoPiezaFormSet = modelformset_factory(TrabajoPieza, form=TrabajoPiezaForm, extra=1)
     
@@ -45,10 +47,12 @@ def crear_trabajo(request):
         'trabajo_pieza_formset': trabajo_pieza_formset,
     })
 
+@login_required
 def listar_trabajos(request):
     trabajos = Trabajo.objects.all()
     return render(request, 'gestion/listar_trabajos.html', {'trabajos': trabajos})
 
+@login_required
 def detalle_trabajo(request, trabajo_id):
     trabajo = get_object_or_404(Trabajo, id=trabajo_id)
     return render(request, 'gestion/detalle_trabajo.html', {'trabajo': trabajo})
