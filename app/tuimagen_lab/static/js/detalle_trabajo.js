@@ -5,7 +5,7 @@ $(document).ready(function() {
         var trabajoId = button.data('id'); // Extraer información del atributo data-id
         // Realizar una solicitud AJAX para obtener los detalles del trabajo
         $.ajax({
-            url: `${window.location.href}detalle_trabajo`, // URL para obtener los detalles del trabajo
+            url: `${window.location.origin}/detalle_trabajo`, // URL para obtener los detalles del trabajo
             data: {id: trabajoId},
             success: function(data) {
                 // Llenar los datos en el modals
@@ -13,6 +13,7 @@ $(document).ready(function() {
                 $('#detallePaciente').text(data.paciente_nombre);
                 $('#detalleRut').text(data.paciente_rut);
                 $('#detalleDentista').text(data.dentista_nombre);
+                $('#detalleFechaIngreso').text(data.fecha_ingreso);
                 $('#detalleFechaEntrega').text(data.fecha_entrega);
                 $('#detalleEstado').text(data.estado);
                 var piezasList = $('#detallePiezas');

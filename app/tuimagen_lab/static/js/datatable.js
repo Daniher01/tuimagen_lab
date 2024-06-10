@@ -6,7 +6,7 @@ $(document).ready(function() {
             "ordering": true,
             "info": true,
             "language": {
-                "url": `${window.location.href}static/vendor/datatables/Spanish.json`
+                "url": `${window.location.origin}/static/vendor/datatables/Spanish.json`
             }
         });
     }

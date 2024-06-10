@@ -80,6 +80,7 @@ def detalle_trabajo(request):
         'paciente_nombre': trabajo.paciente.nombre,
         'paciente_rut': trabajo.paciente.rut,
         'dentista_nombre': trabajo.dentista.nombre,
+        'fecha_ingreso': trabajo.fecha_creacion.strftime('%Y-%m-%d'),
         'fecha_entrega': trabajo.fecha_entrega.strftime('%Y-%m-%d'),
         'estado': trabajo.get_estado_display(),
         'piezas': piezas_data,
