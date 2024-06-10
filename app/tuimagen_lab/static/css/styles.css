@@ -8,3 +8,10 @@
     background-color: var(--color-fondo) !important;
     color: var(--color-texto) !important;
 }
+
+header svg {
+  display: block;
+  margin: 0 auto 0.25rem; /* mb-1 */
+  height: 24px; /* height="24" */
+  width: 24px; /* width="24" */
+}

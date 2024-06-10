@@ -18,13 +18,15 @@
     {% endblock %}
 </head>
 <body>
-    {% include "header.html" %}
-    <main class="container">
-        {% block content %}
-        <!-- Aquí se incluirá el contenido específico de cada vista -->
-        {% endblock %}
-    </main>
-    {% include "footer.html" %}
+    <div class="d-flex flex-column min-vh-100">
+        {% include "header.html" %}
+        <main class="flex-fill container">
+            {% block content %}
+            <!-- Aquí se incluirá el contenido específico de cada vista -->
+            {% endblock %}
+        </main>
+        {% include "footer.html" %}
+    </div>
     <!-- Bootstrap JS and Popper.js -->
     {% bootstrap_javascript %}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
