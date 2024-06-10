@@ -6,7 +6,7 @@
             <img src="{% static 'images/ideas_pro_logo.png' %}" width="40" height="40" alt="IdeasPro logo">
           </a>
           <span class="mb-3 mb-md-0 text-body-secondary">
-            © 2024 Agencia IdeasPro
+            © <span id="currentYear"></span> Agencia IdeasPro
         </span>
         </div>
     
@@ -17,3 +17,13 @@
         </ul>
       </footer>
 </div>
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var currentYear = new Date().getFullYear();
+        document.getElementById('currentYear').textContent = currentYear;
+    });
+</script>
+{% endblock scripts %}
+
