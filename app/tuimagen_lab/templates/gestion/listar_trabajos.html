@@ -57,8 +57,14 @@
                     <th>RUT</th>
                     <th>Nombre del Dentista</th>
                     <th>Fecha de Entrega</th>
+                    {% if estado == 'TERMINADO' %}
+                    <th>Fecha de Termino</th>
+                    {% endif %}
                     <th>Estado</th>
                     <th>Detalle</th>
+                    {% if estado == 'EN_PROCESO' %}
+                    <th>Terminar</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -69,6 +75,9 @@
                         <td>{{ trabajo.paciente.rut }}</td>
                         <td>{{ trabajo.dentista.nombre }}</td>
                         <td>{{ trabajo.fecha_entrega }}</td>
+                        {% if estado == 'TERMINADO' %}
+                        <td>{{ trabajo.fecha_termino }}</td>
+                        {% endif %}
                         <td class="text-center align-middle">
                             {% if trabajo.estado == 'EN_PROCESO' %}
                                 <span class="badge bg-warning text-dark">{{ trabajo.get_estado_display }}</span>
@@ -83,7 +92,15 @@
                                 </span>
                                 <span class="text">Ver</span>
                             </a>
+                            
                         </td>
+                        {% if estado == 'EN_PROCESO' %}
+                        <td>
+                            <button class="btn btn-outline-success btn-terminar-trabajo" data-id="{{ trabajo.id }}">
+                                Terminar
+                            </button>
+                        </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </tbody>
@@ -128,4 +145,5 @@
     <!-- Page level custom scripts -->
     <script src="{% static "js/datatable.js" %}"></script>
     <script src="{% static "js/detalle_trabajo.js" %}"></script>
+    <script src="{% static "js/terminar_trabajo.js" %}"></script>
 {% endblock %}

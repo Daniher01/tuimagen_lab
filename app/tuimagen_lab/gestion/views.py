@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse
+from django.utils import timezone
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 from django.forms import modelformset_factory
 from .models import Trabajo, TrabajoPieza, Paciente, Dentista
 from .forms import TrabajoForm, TrabajoPiezaForm, PacienteForm, DentistaForm
@@ -34,7 +37,7 @@ def crear_trabajo(request):
                     trabajo_pieza = form.save(commit=False)
                     trabajo_pieza.trabajo = trabajo
                     trabajo_pieza.save()
-            return redirect('detalle_trabajo', trabajo_id=trabajo.id)
+            return redirect('listar_trabajos_pendientes')
     else:
         paciente_form = PacienteForm(prefix='paciente')
         dentista_form = DentistaForm(prefix='dentista')
@@ -86,3 +89,19 @@ def detalle_trabajo(request):
         'piezas': piezas_data,
     }
     return JsonResponse(data)
+
+
+@login_required
+@require_POST
+@csrf_exempt
+def terminar_trabajo(request):
+    ESTADO = 'TERMINADO'
+    trabajo_id = request.POST.get('id')
+    trabajo = get_object_or_404(Trabajo, id=trabajo_id)
+    
+    if trabajo.estado != ESTADO:
+        trabajo.estado = ESTADO
+        trabajo.fecha_termino = timezone.now
+        trabajo.save()
+        return JsonResponse({'success': True})
+    return JsonResponse({'success': False, 'error': 'El trabajo ya está terminado'})
