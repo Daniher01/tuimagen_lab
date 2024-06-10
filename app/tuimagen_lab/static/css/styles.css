@@ -1,5 +1,5 @@
 :root {
-    --color-fondo: #892a7d;
+    --color-tuimagen: #892a7d;
     --color-texto: #fff;
   }
 
@@ -15,12 +15,25 @@ header svg {
 
   .bg-tuimagen
  {
-    background-color: var(--color-fondo) !important;
+    background-color: var(--color-tuimagen) !important;
     color: var(--color-texto) !important;
 }
 
 .bg-tuimagen * {
   color: var(--color-texto) !important;
+}
+
+/* Sobrescribir los estilos de Bootstrap */
+.btn-primary {
+  color: var(--color-texto) !important;
+  background-color: var(--color-tuimagen) !important;
+  border-color: var(--color-tuimagen) !important;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  color: var(--color-texto) !important;
+  background-color: #751865 !important; /* Un tono más oscuro, puedes ajustar este valor */
+  border-color: #751865 !important; /* Un tono más oscuro, puedes ajustar este valor */
 }
 
 .btn-outline-light:hover {
@@ -29,4 +42,12 @@ header svg {
 
 .btn-outline-light:hover * {
   color: black !important; /* Cambia el color del texto al pasar el ratón */
+}
+
+/* clase para centrar el contenido verticalmente */
+.center-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
 }

@@ -1,28 +1,33 @@
 {% extends 'base.html' %}
 
+{% block main_class %}center-login{% endblock %}
+
 {% block content %}
-    <div class="container mt-5">
+    <div class="container">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-body">
-                        <h2 class="card-title text-center mb-4">Ingresa tus credenciales</h2>
+                        <h2 class="h3 mb-3 fw-normal">Ingresa tus credenciales</h2>
                         <form method="post" class="needs-validation" novalidate>
                             {% csrf_token %}
-                            <div class="mb-3">
-                                <input type="text" class="form-control" id="id_username" name="username" placeholder="Nombre de usuario">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="id_username" name="username" placeholder="Nombre de usuario" required>
+                                <label for="floatingInput">Usuario</label>
                                 {% for error in form.username.errors %}
                                     <div class="invalid-feedback d-block">{{ error }}</div>
                                 {% endfor %}
                             </div>
-                            <div class="mb-3">
-                                <input type="password" class="form-control" id="id_password" name="password" placeholder="Contraseña">
+                            <div class="form-floating">
+                                <input type="password" class="form-control" id="id_password" name="password" placeholder="Contraseña" required>
+                                <label for="floatingInput">Contraseña</label>
                                 {% for error in form.password.errors %}
                                     <div class="invalid-feedback d-block">{{ error }}</div>
                                 {% endfor %}
                             </div>
+                            <br>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                                <button type="submit" class="btn btn-primary w-100 py-2">Ingresar</button>
                             </div>
                         </form>
                         {% if form.errors %}
