@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.forms import modelformset_factory
 from .models import Trabajo, TrabajoPieza, Paciente, Dentista
@@ -62,6 +63,25 @@ def listar_trabajos_terminiados(request):
     return render(request, 'gestion/listar_trabajos.html', {'trabajos': trabajos, 'total_trabajos': total_trabajos, 'estado': ESTADO})
 
 @login_required
-def detalle_trabajo(request, trabajo_id):
+def detalle_trabajo(request):
+    trabajo_id = request.GET.get('id')
     trabajo = get_object_or_404(Trabajo, id=trabajo_id)
-    return render(request, 'gestion/detalle_trabajo.html', {'trabajo': trabajo})
+    trabajo_piezas = TrabajoPieza.objects.filter(trabajo=trabajo)
+
+    # Construir la lista de piezas asociadas
+    piezas_data = []
+    for pieza in trabajo_piezas:
+        piezas_data.append({
+            'pieza_nombre': pieza.pieza.nombre,
+            'material_nombre': pieza.material.nombre,
+        })
+        
+    data = {
+        'paciente_nombre': trabajo.paciente.nombre,
+        'paciente_rut': trabajo.paciente.rut,
+        'dentista_nombre': trabajo.dentista.nombre,
+        'fecha_entrega': trabajo.fecha_entrega.strftime('%Y-%m-%d'),
+        'estado': trabajo.get_estado_display(),
+        'piezas': piezas_data,
+    }
+    return JsonResponse(data)
