@@ -35,7 +35,7 @@ class Trabajo(models.Model):
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
     fecha_creacion = models.DateTimeField(default=timezone.now, editable=False)
     fecha_entrega = models.DateField()
-    fecha_termino = models.DateField()
+    fecha_termino = models.DateField(null=True)
     dentista = models.ForeignKey(Dentista, on_delete=models.CASCADE)
     estado = models.CharField(max_length=20, choices=ESTADOS, default='EN_PROCESO')
 

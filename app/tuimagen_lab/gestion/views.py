@@ -101,7 +101,7 @@ def terminar_trabajo(request):
     
     if trabajo.estado != ESTADO:
         trabajo.estado = ESTADO
-        trabajo.fecha_termino = timezone.now
+        trabajo.fecha_termino = timezone.now()
         trabajo.save()
         return JsonResponse({'success': True})
     return JsonResponse({'success': False, 'error': 'El trabajo ya está terminado'})
