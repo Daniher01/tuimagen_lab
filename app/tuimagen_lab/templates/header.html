@@ -1,0 +1,36 @@
+{% load static %}
+<header class="color-tuimagen">
+    <div class="container d-flex flex-wrap justify-content-center py-3 mb-4">
+        <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none text-white">
+            <img class="bi me-2" src="{% static 'images/tuimagenlogo_blanco.png' %}" width="40" height="32" alt="Tu Imagen logo">
+            <span class="fs-4">Tu Imagen Lab</span>
+            
+            </a>
+        
+        
+            {% if user.is_authenticated %}
+            <ul class="nav nav-pills">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'crear_trabajo' %}"><i class="fa-regular fa-star" width="24" height="24"></use></i>
+                        Crear Trabajo
+                    </a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'listar_trabajos' %}">
+                    <i class="fa-regular fa-star" width="24" height="24"></use></i>
+                    Listar Trabajos
+                </a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">
+                    <i class="bi d-block mx-auto mb-1 fa-regular fa-star fa-2x"></use></i>
+                    Logout
+                </a></li>
+                <li>
+                    <a href="#" class="nav-link text-secondary">
+                        <svg class="bi d-block mx-auto mb-1" xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M184 48H328c4.4 0 8 3.6 8 8V96H176V56c0-4.4 3.6-8 8-8zm-56 8V96H64C28.7 96 0 124.7 0 160v96H192 320 512V160c0-35.3-28.7-64-64-64H384V56c0-30.9-25.1-56-56-56H184c-30.9 0-56 25.1-56 56zM512 288H320v32c0 17.7-14.3 32-32 32H224c-17.7 0-32-14.3-32-32V288H0V416c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V288z"/></svg>
+                      Home
+                    </a>
+                  </li>
+            </ul>
+            {% endif %}
+    </div>
+
+</header>

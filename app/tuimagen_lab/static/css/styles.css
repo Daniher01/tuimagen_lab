@@ -1,0 +1,10 @@
+:root {
+    --color-fondo: #892a7d;
+    --color-texto: white;
+  }
+
+  .color-tuimagen
+ {
+    background-color: var(--color-fondo) !important;
+    color: var(--color-texto) !important;
+}

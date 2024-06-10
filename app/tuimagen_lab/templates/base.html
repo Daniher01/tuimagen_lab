@@ -12,13 +12,14 @@
     <link href="{% static 'fontawesomefree/css/fontawesome.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/brands.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'fontawesomefree/css/solid.css' %}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="{% static "css/styles.css" %}">
     {% block head %}
     <!-- Aquí puedes añadir estilos CSS comunes, scripts JS, etc. -->
     {% endblock %}
 </head>
 <body>
     {% include "header.html" %}
-    <main>
+    <main class="container">
         {% block content %}
         <!-- Aquí se incluirá el contenido específico de cada vista -->
         {% endblock %}
