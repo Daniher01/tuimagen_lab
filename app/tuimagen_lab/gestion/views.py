@@ -49,10 +49,17 @@ def crear_trabajo(request):
 
 @login_required
 def listar_trabajos_pendientes(request):
-    trabajos = Trabajo.objects.filter(estado='EN_PROCESO')
-    print(trabajos)
+    ESTADO = 'EN_PROCESO'
+    trabajos = Trabajo.objects.filter(estado=ESTADO)
     total_trabajos = trabajos.count()
-    return render(request, 'gestion/listar_trabajos.html', {'trabajos': trabajos, 'total_trabajos': total_trabajos})
+    return render(request, 'gestion/listar_trabajos.html', {'trabajos': trabajos, 'total_trabajos': total_trabajos, 'estado': ESTADO})
+
+@login_required
+def listar_trabajos_terminiados(request):
+    ESTADO = 'TERMINADO'
+    trabajos = Trabajo.objects.filter(estado=ESTADO)
+    total_trabajos = trabajos.count()
+    return render(request, 'gestion/listar_trabajos.html', {'trabajos': trabajos, 'total_trabajos': total_trabajos, 'estado': ESTADO})
 
 @login_required
 def detalle_trabajo(request, trabajo_id):
