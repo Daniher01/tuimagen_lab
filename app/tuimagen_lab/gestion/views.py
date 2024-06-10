@@ -48,9 +48,11 @@ def crear_trabajo(request):
     })
 
 @login_required
-def listar_trabajos(request):
-    trabajos = Trabajo.objects.all()
-    return render(request, 'gestion/listar_trabajos.html', {'trabajos': trabajos})
+def listar_trabajos_pendientes(request):
+    trabajos = Trabajo.objects.filter(estado='EN_PROCESO')
+    print(trabajos)
+    total_trabajos = trabajos.count()
+    return render(request, 'gestion/listar_trabajos.html', {'trabajos': trabajos, 'total_trabajos': total_trabajos})
 
 @login_required
 def detalle_trabajo(request, trabajo_id):
