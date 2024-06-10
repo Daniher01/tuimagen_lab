@@ -29,7 +29,7 @@ class Pieza(models.Model):
 class Trabajo(models.Model):
     ESTADOS = [
         ('EN_PROCESO', 'En proceso'),
-        ('COMPLETADO', 'Completado'),
+        ('TERMINADO', 'Terminado'),
     ]
 
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
