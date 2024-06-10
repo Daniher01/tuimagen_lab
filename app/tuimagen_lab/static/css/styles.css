@@ -1,17 +1,32 @@
 :root {
     --color-fondo: #892a7d;
-    --color-texto: white;
+    --color-texto: #fff;
   }
 
-  .color-tuimagen
- {
-    background-color: var(--color-fondo) !important;
-    color: var(--color-texto) !important;
-}
-
+  
 header svg {
   display: block;
   margin: 0 auto 0.25rem; /* mb-1 */
   height: 24px; /* height="24" */
   width: 24px; /* width="24" */
+  fill: var(--color-texto) !important; /* Aplica el color al relleno del SVG */
+  stroke: var(--color-texto) !important; /* Aplica el color al trazo del SVG */
+}
+
+  .bg-tuimagen
+ {
+    background-color: var(--color-fondo) !important;
+    color: var(--color-texto) !important;
+}
+
+.bg-tuimagen * {
+  color: var(--color-texto) !important;
+}
+
+.btn-outline-light:hover {
+  color: black !important; /* Cambia el color del texto al pasar el ratón */
+}
+
+.btn-outline-light:hover * {
+  color: black !important; /* Cambia el color del texto al pasar el ratón */
 }

@@ -30,7 +30,6 @@ class Trabajo(models.Model):
     ESTADOS = [
         ('EN_PROCESO', 'En proceso'),
         ('COMPLETADO', 'Completado'),
-        ('PENDIENTE', 'Pendiente'),
     ]
 
     paciente = models.ForeignKey(Paciente, on_delete=models.CASCADE)
