@@ -26,7 +26,7 @@
 <body>
     <div class="d-flex flex-column min-vh-100">
         {% include "header.html" %}
-        <main class="flex-fill mt-4 mb-4 {% block main_class %}container{% endblock %}">
+        <main class="flex-fill mt-4 mb-4 {% block main_class %}container px-0{% endblock %}">
             {% block content %}
             <!-- Aquí se incluirá el contenido específico de cada vista -->
             {% endblock %}
