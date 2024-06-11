@@ -59,7 +59,7 @@
                             <div class="card mb-3">
                                 <div class="card-body d-flex flex-wrap justify-content-between">
                                     <div class="form-floating mb-3 flex-fill me-2">
-                                        <select class="form-select" id="{{ form.tipo.id_for_label }}" name="{{ form.tipo.html_name }}" required>
+                                        <select class="form-select" id="{{ form.tipo_pieza.id_for_label }}" name="{{ form.tipo_pieza.html_name }}" required>
                                             {% for choice in form.tipo_pieza.field.choices %}
                                                 <option value="{{ choice.0 }}" {% if choice.0 == form.tipo_pieza.value %}selected{% endif %}>{{ choice.1 }}</option>
                                             {% endfor %}
