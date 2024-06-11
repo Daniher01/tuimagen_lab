@@ -38,10 +38,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    #personalizado
-    'gestion',
+    # apps descargadas
     'bootstrap5',
     'fontawesomefree',
+    # apps personalizadas
+    'gestion',
+    'pacientes',
+    'doctores',
+    'trabajos',
+    'fresado',
+    'impresion3d',
+    'escaneos_intraorales',
+
 ]
 
 MIDDLEWARE = [
