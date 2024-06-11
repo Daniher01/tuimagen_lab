@@ -5,13 +5,15 @@
 {% block content %}
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h1 mb-0 text-gray-800">Fresado</h1>
+            </div>
             <div class="row">
                 <!-- Tarjeta para Datos del Paciente, Doctor y Trabajo -->
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <h2 class="h3 mb-3 fw-normal text-center">Crear Trabajo de Fresado</h2>
                             <form method="post" class="needs-validation" novalidate>
                                 {% csrf_token %}
                                 <h4 class="h5 my-4 text-gray-800">Datos del Paciente</h4>
@@ -60,7 +62,7 @@
                 </div>
 
                 <!-- Tarjeta para Piezas -->
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="card mb-4">
                         <div class="card-body">
                             <h4 class="h5 my-4 text-gray-800">Piezas</h4>
