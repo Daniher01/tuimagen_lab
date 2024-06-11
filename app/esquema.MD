@@ -11,9 +11,15 @@
 - Terminado
 ## Tipo de trabajo
 ### Fresado
-- Diente
+- Pieza
+    - Tipo
+        - 1.1
+        - 1.2
+        - 1.3
     - Material
-    - Bloque (o bloques)
+        - Feldesfato
+        - Disilicato
+    - Bloque
 - Maquillaje
     - Si
     - No
