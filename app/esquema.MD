@@ -1,10 +1,14 @@
-# TU IMAGEN LAB
+# Trabajo
 ## Paciente
 - nombre
 - rut
 ## Doctor
 - nombre
 ## Fecha entrega
+## Fecha termino
+## Estado
+- En proceso
+- Terminado
 ## Tipo de trabajo
 ### Fresado
 - Diente
