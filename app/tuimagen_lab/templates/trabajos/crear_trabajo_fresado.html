@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Crear Trabajo de Fresado{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="h3 mb-3 text-gray-800">Crear Trabajo de Fresado</h1>
+    <form method="post">
+        {% csrf_token %}
+        <h4 class="h5 my-4 text-gray-800">Datos del Paciente</h4>
+        <div class="mb-3">
+            {{ paciente_form.as_p }}
+        </div>
+        <h4 class="h5 my-4 text-gray-800">Datos del Doctor</h4>
+        <div class="mb-3">
+            {{ doctor_form.as_p }}
+        </div>
+        <h4 class="h5 my-4 text-gray-800">Datos del Trabajo</h4>
+        <div class="mb-3">
+            {{ trabajo_form.as_p }}
+        </div>
+        <h4 class="h5 my-4 text-gray-800">Piezas</h4>
+        {{ pieza_formset.management_form }}
+        {% for form in pieza_formset %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    {{ form.as_p }}
+                </div>
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Guardar Trabajo</button>
+    </form>
+</div>
+{% endblock %}

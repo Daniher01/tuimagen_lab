@@ -15,8 +15,8 @@ class Pieza(models.Model):
     ]
     
     TIPOS_PIEZA = [
-        ('tipo1', 'Tipo 1'),
-        ('tipo2', 'Tipo 2'),
+        ('1.1', '1.1'),
+        ('1.1', '1.2'),
         # Agrega los tipos de pieza según el esquema proporcionado
     ]
 
