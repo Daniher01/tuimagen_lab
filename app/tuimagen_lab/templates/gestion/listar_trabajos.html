@@ -54,7 +54,6 @@
                 <tr>
                     <th>N°</th>
                     <th>Nombre del Paciente</th>
-                    <th>RUT</th>
                     <th>Nombre del Dentista</th>
                     <th>Fecha a Entregar</th>
                     {% if estado == 'TERMINADO' %}
@@ -72,7 +71,6 @@
                     <tr>
                         <td>{{trabajo.id}}</td>
                         <td>{{ trabajo.paciente.nombre }}</td>
-                        <td>{{ trabajo.paciente.rut }}</td>
                         <td>{{ trabajo.dentista.nombre }}</td>
                         <td>{{ trabajo.fecha_entrega }}</td>
                         {% if estado == 'TERMINADO' %}
