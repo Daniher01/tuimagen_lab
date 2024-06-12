@@ -9,13 +9,13 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h1 mb-0 text-gray-800">Fresado</h1>
             </div>
-            <form method="post" class="needs-validation" novalidate>
-                {% csrf_token %}
-                <div class="row">
-                    <!-- Tarjeta para Datos del Paciente, Doctor y Trabajo -->
-                    <div class="col-md-5">
-                        <div class="card mb-4">
-                            <div class="card-body">
+            <div class="row">
+                <!-- Tarjeta para Datos del Paciente, Doctor y Trabajo -->
+                <div class="col-md-5">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <form method="post" class="needs-validation" novalidate>
+                                {% csrf_token %}
                                 <h4 class="h5 my-4 text-gray-800">Datos del Paciente</h4>
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="{{ paciente_form.name.id_for_label }}" name="{{ paciente_form.name.html_name }}" placeholder="Nombre del Paciente" required>
@@ -56,70 +56,65 @@
                                         <div class="invalid-feedback d-block">{{ error }}</div>
                                     {% endfor %}
                                 </div>
-                            </div>
+                    
                         </div>
                     </div>
+                </div>
 
-                    <!-- Tarjeta para Piezas -->
-                    <div class="col-md-7">
-                        <div class="card mb-4">
-                            <div class="card-body">
+                <!-- Tarjeta para Piezas -->
+                <div class="col-md-7">
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center">
                                 <h4 class="h5 my-4 text-gray-800">Piezas</h4>
+                                <button type="button" class="btn btn-secondary mb-3 add-pieza">Duplicar</button>
+                            </div>
+                            <div id="piezas-container">
                                 {{ pieza_formset.management_form }}
                                 {% for form in pieza_formset %}
-                                    <div class="card mb-3">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-3">
-                                                    <div class="form-floating mb-3">
-                                                        <select class="form-select" id="{{ form.tipo_pieza.id_for_label }}" name="{{ form.tipo_pieza.html_name }}" required>
-                                                            {% for choice in form.tipo_pieza.field.choices %}
-                                                                <option value="{{ choice.0 }}" {% if choice.0 == form.tipo_pieza.value %}selected{% endif %}>{{ choice.1 }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                        <label for="{{ form.tipo_pieza.id_for_label }}">Tipo</label>
-                                                        {% for error in form.tipo_pieza.errors %}
-                                                            <div class="invalid-feedback d-block">{{ error }}</div>
-                                                        {% endfor %}
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-floating mb-3">
-                                                        <select class="form-select" id="{{ form.material.id_for_label }}" name="{{ form.material.html_name }}" required>
-                                                            {% for choice in form.material.field.choices %}
-                                                                <option value="{{ choice.0 }}" {% if choice.0 == form.material.value %}selected{% endif %}>{{ choice.1 }}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                        <label for="{{ form.material.id_for_label }}">Material</label>
-                                                        {% for error in form.material.errors %}
-                                                            <div class="invalid-feedback d-block">{{ error }}</div>
-                                                        {% endfor %}
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-floating mb-3">
-                                                        <input type="text" class="form-control" id="{{ form.bloque.id_for_label }}" name="{{ form.bloque.html_name }}" placeholder="Bloque" required>
-                                                        <label for="{{ form.bloque.id_for_label }}">Bloque</label>
-                                                        {% for error in form.bloque.errors %}
-                                                            <div class="invalid-feedback d-block">{{ error }}</div>
-                                                        {% endfor %}
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-3 d-flex align-items-end">
-                                                    <button type="button" class="btn btn-secondary mb-3 w-100">Botón</button>
-                                                </div>
+                                    <div class="card mb-3 pieza-form">
+                                        <div class="card-body d-flex flex-wrap justify-content-between">
+                                            <div class="form-floating mb-3 flex-fill me-2">
+                                                <select class="form-select" id="{{ form.tipo_pieza.id_for_label }}" name="{{ form.tipo_pieza.html_name }}" required>
+                                                    {% for choice in form.tipo_pieza.field.choices %}
+                                                        <option value="{{ choice.0 }}" {% if choice.0 == form.tipo_pieza.value %}selected{% endif %}>{{ choice.1 }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <label for="{{ form.tipo_pieza.id_for_label }}">Tipo</label>
+                                                {% for error in form.tipo_pieza.errors %}
+                                                    <div class="invalid-feedback d-block">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-floating mb-3 flex-fill me-2">
+                                                <select class="form-select" id="{{ form.material.id_for_label }}" name="{{ form.material.html_name }}" required>
+                                                    {% for choice in form.material.field.choices %}
+                                                        <option value="{{ choice.0 }}" {% if choice.0 == form.material.value %}selected{% endif %}>{{ choice.1 }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                                <label for="{{ form.material.id_for_label }}">Material</label>
+                                                {% for error in form.material.errors %}
+                                                    <div class="invalid-feedback d-block">{{ error }}</div>
+                                                {% endfor %}
+                                            </div>
+                                            <div class="form-floating mb-3 flex-fill">
+                                                <input type="text" class="form-control" id="{{ form.bloque.id_for_label }}" name="{{ form.bloque.html_name }}" placeholder="Bloque" required>
+                                                <label for="{{ form.bloque.id_for_label }}">Bloque</label>
+                                                {% for error in form.bloque.errors %}
+                                                    <div class="invalid-feedback d-block">{{ error }}</div>
+                                                {% endfor %}
                                             </div>
                                         </div>
                                     </div>
                                 {% endfor %}
                             </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-primary w-100 py-2">Guardar Trabajo</button>
+                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
-                <div class="text-center">
-                    <button type="submit" class="btn btn-success w-100 py-2">Guardar Trabajo</button>
-                </div>
-            </form>
+            </div>
 
             {% if paciente_form.errors or doctor_form.errors or trabajo_form.errors or pieza_formset.non_form_errors %}
             <div class="alert alert-danger mt-3" role="alert">
@@ -155,4 +150,17 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelector('.add-pieza').addEventListener('click', function () {
+            var piezaForm = document.querySelector('.pieza-form');
+            var newPiezaForm = piezaForm.cloneNode(true);
+            var piezasContainer = document.getElementById('piezas-container');
+            piezasContainer.appendChild(newPiezaForm);
+        });
+    });
+</script>
 {% endblock %}
