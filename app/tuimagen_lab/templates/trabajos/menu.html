@@ -8,57 +8,41 @@
         <h1 class="h1 mb-0 text-gray-800">Tipos de trabajo</h1>
     </div>
     <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="h4 font-weight-bold text-primary text-uppercase mb-1">
-                                Fresado</div>
-                            <div class="text mb-0 font-weight text-gray-800">Seleccione esta opción para crear un trabajo de fresado</div>
-                            <a href="{% url 'crear_trabajo_fresado' %}" class="btn btn-primary mt-4">Seleccionar</a>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-tooth fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="h4 font-weight-bold text-primary text-uppercase mb-1">
-                                Impresión 3D</div>
-                            <div class="text mb-0 font-weight text-gray-800">Seleccione esta opción para crear un trabajo de impresión 3D</div>
-                            <a href="{% url 'crear_trabajo_impresion3d' %}" class="btn btn-primary mt-4">Seleccionar</a>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-teeth-open fa-2x text-gray-300"></i>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card border-left-primary shadow h-100 py-2">
-                <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-                            <div class="h4 font-weight-bold text-primary text-uppercase mb-1">
-                                Escaneo Intraoral</div>
-                            <div class="text mb-0 font-weight text-gray-800">Seleccione esta opción para crear un trabajo de escaneo intraoral</div>
-                            <a href="{% url 'crear_trabajo_escaneo_intraoral' %}" class="btn btn-primary mt-4">Seleccionar</a>
-                        </div>
-                        <div class="col-auto">
-                            <i class="fas fa-tv fa-2x text-gray-300"></i>
+        {% for tipo in tipos %}
+            <div class="col-md-4 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="h4 font-weight-bold text-primary text-uppercase mb-1">
+                                    {{ tipo.1 }}</div>
+                                <div class="text mb-0 font-weight text-gray-800">Seleccione esta opción para crear un trabajo de {{ tipo.1 | lower }}</div>
+                                <a
+                                {% if tipo.0 == 'fresado' %}
+                                     href="{% url 'crear_trabajo_fresado' %}"
+                                {% elif tipo.0 == 'impresion_3d' %}
+                                     href="{% url 'crear_trabajo_impresion3d' %}" 
+                                {% elif tipo.0 == 'escaneo_intraoral' %}
+                                     href="{% url 'crear_trabajo_escaneo_intraoral' %}" 
+                                {% else %}
+                                href="#" 
+                                {% endif %}
+                                class="btn btn-primary mt-4">Seleccionar</a>
+                            </div>
+                            <div class="col-auto">
+                                {% if tipo.0 == 'fresado' %}
+                                <i class="fas fa-tooth fa-2x text-gray-300"></i>
+                                {% elif tipo.0 == 'impresion_3d' %}
+                                <i class="fas fa-teeth-open fa-2x text-gray-300"></i>
+                                {% elif tipo.0 == 'escaneo_intraoral' %}
+                                <i class="fas fa-tv fa-2x text-gray-300"></i>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

@@ -11,7 +11,8 @@ from doctores.models import Doctor
 
 # Create your views here.
 def seleccionar_tipo_trabajo(request):
-    return render(request, 'trabajos/menu.html')
+    tipos_trabajo = Trabajo.TIPOS
+    return render(request, 'trabajos/menu.html', {'tipos': tipos_trabajo})
 
 def crear_trabajo_fresado(request):
     PiezaFormSet = inlineformset_factory(TrabajoFresado, Pieza, form=PiezaForm, extra=1, can_delete=False)
