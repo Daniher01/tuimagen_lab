@@ -26,4 +26,4 @@ class Pieza(models.Model):
     bloque = models.CharField(max_length=255)
 
     def __str__(self):
-        return f'Pieza de {self.material}, tipo {self.tipo_pieza} para {self.trabajo_fresado.trabajo.paciente}'
+        return f'Pieza de {self.material}, tipo {self.tipo_pieza}'

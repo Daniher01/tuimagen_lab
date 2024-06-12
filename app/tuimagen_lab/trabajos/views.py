@@ -23,6 +23,7 @@ def crear_trabajo_fresado(request):
         paciente_form = PacienteForm(request.POST, prefix='paciente')
         doctor_form = DoctorForm(request.POST, prefix='doctor')
 
+        print(pieza_formset)
         # Validar todos los formularios
         if trabajo_form.is_valid() and pieza_formset.is_valid() and paciente_form.is_valid() and doctor_form.is_valid():
             # Obtener los datos limpios

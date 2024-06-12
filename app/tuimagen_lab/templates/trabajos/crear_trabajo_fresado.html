@@ -114,8 +114,8 @@
                             </div>
                             <div class="text-center">
                                 <button type="submit" class="btn btn-primary w-100 py-2">Guardar Trabajo</button>
-                            </div>
                             </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -188,9 +188,17 @@
         document.querySelector('.add-pieza').addEventListener('click', function () {
             var piezaForm = document.querySelector('.pieza-form:last-of-type'); // Select the last pieza form
             var newPiezaForm = piezaForm.cloneNode(true);
-            newPiezaForm.querySelectorAll('input, select, textarea').forEach(function (input) {
-                input.value = '';  // Clear the values in the cloned form
+
+            // Clear the values in the cloned form
+            newPiezaForm.querySelectorAll('input, textarea').forEach(function (input) {
+                input.value = '';
             });
+
+            // Clear the selected values in the cloned form
+            newPiezaForm.querySelectorAll('select').forEach(function (select) {
+                select.selectedIndex = 0; // Set to the default value (first option)
+            });
+
             var piezasContainer = document.getElementById('piezas-container');
             piezasContainer.appendChild(newPiezaForm);
             updateFormIndices();
@@ -208,6 +216,15 @@
                     button.closest('.pieza-form').remove();
                     updateRemoveButtons();
                     updateFormIndices();
+                }
+            });
+        });
+
+        document.querySelector('form').addEventListener('submit', function (e) {
+            // Manually set the value for each select before submitting
+            document.querySelectorAll('.pieza-form select').forEach(function (select) {
+                if (select.selectedIndex === 0) {
+                    select.value = ''; // Ensure the default option is empty
                 }
             });
         });
