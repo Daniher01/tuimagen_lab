@@ -12,6 +12,7 @@ class Pieza(models.Model):
     MATERIALES = [
         ('feldespato', 'Feldespato'),
         ('disilicato', 'Disilicato'),
+        ('resina', 'Resina'),
     ]
     
     TIPOS_PIEZA = [
