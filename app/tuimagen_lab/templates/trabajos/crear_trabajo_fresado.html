@@ -14,7 +14,7 @@
                 <div class="col-md-5">
                     <div class="card mb-4">
                         <div class="card-body">
-                            <form method="post" class="needs-validation" novalidate>
+                            <form id="trabajoForm" method="post" class="needs-validation" novalidate>
                                 {% csrf_token %}
                                 <h4 class="h5 my-4 text-gray-800">Datos del Paciente</h4>
                                 <div class="form-floating mb-3">
@@ -113,9 +113,9 @@
                                 {% endfor %}
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary w-100 py-2">Guardar Trabajo</button>
-                            </form>
+                                <button type="button" id="submitBtn" class="btn btn-primary w-100 py-2">Guardar Trabajo</button>
                             </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -158,6 +158,7 @@
 {% endblock %}
 
 {% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         function updateRemoveButtons() {
@@ -166,7 +167,7 @@
                 button.disabled = removeButtons.length === 1;
             });
         }
-
+    
         function updateFormIndices() {
             const forms = document.querySelectorAll('.pieza-form');
             const totalForms = document.getElementById('id_pieza-TOTAL_FORMS');
@@ -184,21 +185,21 @@
             });
             totalForms.value = forms.length;
         }
-
+    
         document.querySelector('.add-pieza').addEventListener('click', function () {
             var piezaForm = document.querySelector('.pieza-form:last-of-type'); // Select the last pieza form
             var newPiezaForm = piezaForm.cloneNode(true);
-
+    
             // Clear the values in the cloned form
             newPiezaForm.querySelectorAll('input, textarea').forEach(function (input) {
                 input.value = '';
             });
-
+    
             // Clear the selected values in the cloned form
             newPiezaForm.querySelectorAll('select').forEach(function (select) {
                 select.selectedIndex = 0; // Set to the default value (first option)
             });
-
+    
             var piezasContainer = document.getElementById('piezas-container');
             piezasContainer.appendChild(newPiezaForm);
             updateFormIndices();
@@ -209,7 +210,7 @@
             });
             updateRemoveButtons();
         });
-
+    
         document.querySelectorAll('.remove-pieza').forEach(function (button) {
             button.addEventListener('click', function () {
                 if (document.querySelectorAll('.pieza-form').length > 1) {
@@ -219,18 +220,77 @@
                 }
             });
         });
-
-        document.querySelector('form').addEventListener('submit', function (e) {
-            // Manually set the value for each select before submitting
-            document.querySelectorAll('.pieza-form select').forEach(function (select) {
-                if (select.selectedIndex === 0) {
-                    select.value = ''; // Ensure the default option is empty
+    
+        document.getElementById('submitBtn').addEventListener('click', function (e) {
+            e.preventDefault(); // Prevent the default form submission
+        
+            const form = document.getElementById('trabajoForm');
+            const formData = new FormData(form);
+        
+            // Remove all previous pieza form data from FormData
+            for (let pair of [...formData.entries()]) {  // Create a copy of the entries to avoid modifying the iterator during the loop
+                if (pair[0].startsWith('pieza-0')) {
+                    formData.delete(pair[0]);
                 }
+            }
+        
+            // Ensure all select values are included in the form data
+            document.querySelectorAll('.pieza-form').forEach(function (piezaForm) {
+                piezaForm.querySelectorAll('input, select, textarea').forEach(function (input) {
+                    formData.append(input.name, input.value);
+                });
+            });
+        
+            // Log the form data to the console for debugging
+            for (let pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+        
+            fetch(form.action, {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    Swal.fire({
+                        title: 'Trabajo generado',
+                        text: 'El trabajo ha sido generado exitosamente.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '{% url "seleccionar_tipo_trabajo" %}';
+                        }
+                    });
+                } else {
+                    console.log(data)
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Hubo un problema al generar el trabajo. Por favor, inténtalo de nuevo.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+            .catch(error => {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Hubo un problema al generar el trabajo. Por favor, inténtalo de nuevo.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
             });
         });
-
+        
+    
         updateRemoveButtons();
         updateFormIndices();  // Ensure indices are correct on initial load
     });
+    
+    
 </script>
 {% endblock %}

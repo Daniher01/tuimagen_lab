@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from .forms import TrabajoForm
 from fresado.forms import PiezaForm
 from pacientes.forms import PacienteForm
@@ -23,7 +24,6 @@ def crear_trabajo_fresado(request):
         paciente_form = PacienteForm(request.POST, prefix='paciente')
         doctor_form = DoctorForm(request.POST, prefix='doctor')
 
-        print(pieza_formset)
         # Validar todos los formularios
         if trabajo_form.is_valid() and pieza_formset.is_valid() and paciente_form.is_valid() and doctor_form.is_valid():
             # Obtener los datos limpios
@@ -59,7 +59,16 @@ def crear_trabajo_fresado(request):
                 pieza.trabajo_fresado = trabajo_fresado
                 pieza.save()
 
-            return redirect('seleccionar_tipo_trabajo')  # Redirigir después de guardar
+            return JsonResponse({'success': True, 'redirect': 'seleccionar_tipo_trabajo'})  # Respuesta exitosa para AJAX
+        else:
+            # Manejar errores y enviar una respuesta JSON con errores
+            errors = {
+                'trabajo_form': trabajo_form.errors,
+                'pieza_formset': pieza_formset.errors,
+                'paciente_form': paciente_form.errors,
+                'doctor_form': doctor_form.errors,
+            }
+            return JsonResponse({'success': False, 'errors': errors})
 
     else:
         trabajo_form = TrabajoForm(prefix='trabajo')
