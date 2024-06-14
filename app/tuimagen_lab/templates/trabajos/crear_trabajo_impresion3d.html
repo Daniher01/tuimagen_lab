@@ -10,7 +10,7 @@
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
                 <h1 class="h1 mb-0 text-gray-800">Impresión 3D</h1>
             </div>
-            <form id="trabajoForm" method="post" class="needs-validation" novalidate>
+            <form id="trabajoForm_impresion3d" method="post" class="needs-validation" novalidate>
                 {% csrf_token %}
                 <div class="row">
                     <!-- Tarjeta para Datos del Paciente, Doctor y Trabajo -->
@@ -19,36 +19,28 @@
                             <div class="card-body">
                                 <h4 class="h5 my-4 text-gray-800">Datos del Paciente</h4>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="{{ paciente_form.name.id_for_label }}" name="{{ paciente_form.name.html_name }}" placeholder="Nombre del Paciente" required>
-                                    <label for="{{ paciente_form.name.id_for_label }}">Nombre del Paciente</label>
-                                    {% for error in paciente_form.name.errors %}
-                                        <div class="invalid-feedback d-block">{{ error }}</div>
-                                    {% endfor %}
+                                    <input type="text" class="form-control is-rut" id="{{ paciente_form.rut.id_for_label }}" name="{{ paciente_form.rut.html_name }}" placeholder="RUT del Paciente" required>
+                                    <label for="{{ paciente_form.rut.id_for_label }}">RUT del Paciente</label>
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input type="checkbox" id="extranjero" class="form-check-input">
+                                    <label for="extranjero" class="form-check-label">Extranjero</label>
                                 </div>
                                 <div class="form-floating mb-3">
-                                    <input type="text" class="form-control" id="{{ paciente_form.rut.id_for_label }}" name="{{ paciente_form.rut.html_name }}" placeholder="RUT del Paciente" required>
-                                    <label for="{{ paciente_form.rut.id_for_label }}">RUT del Paciente</label>
-                                    {% for error in paciente_form.rut.errors %}
-                                        <div class="invalid-feedback d-block">{{ error }}</div>
-                                    {% endfor %}
+                                    <input type="text" class="form-control " id="{{ paciente_form.name.id_for_label }}" name="{{ paciente_form.name.html_name }}" placeholder="Nombre del Paciente" required>
+                                    <label for="{{ paciente_form.name.id_for_label }}">Nombre del Paciente</label>
                                 </div>
 
                                 <h4 class="h5 my-4 text-gray-800">Datos del Doctor</h4>
                                 <div class="form-floating mb-3">
                                     <input type="text" class="form-control" id="{{ doctor_form.name.id_for_label }}" name="{{ doctor_form.name.html_name }}" placeholder="Nombre del Doctor" required>
                                     <label for="{{ doctor_form.name.id_for_label }}">Nombre del Doctor</label>
-                                    {% for error in doctor_form.name.errors %}
-                                        <div class="invalid-feedback d-block">{{ error }}</div>
-                                    {% endfor %}
                                 </div>
 
                                 <h4 class="h5 my-4 text-gray-800">Datos del Trabajo</h4>
                                 <div class="form-floating mb-3">
                                     <input type="date" class="form-control" id="{{ trabajo_form.fecha_entrega.id_for_label }}" name="{{ trabajo_form.fecha_entrega.html_name }}" placeholder="Fecha de Entrega" required>
                                     <label for="{{ trabajo_form.fecha_entrega.id_for_label }}">Fecha de Entrega</label>
-                                    {% for error in trabajo_form.fecha_entrega.errors %}
-                                        <div class="invalid-feedback d-block">{{ error }}</div>
-                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -67,7 +59,6 @@
                                         <option value="biomodelo">Biomodelo</option>
                                     </select>
                                     <label for="tipoImpresion3D">Tipo de Impresión 3D</label>
-                                    <div class="invalid-feedback">Campo requerido</div>
                                 </div>
 
                                 <div id="guiaQuirurgicaForm" style="display:none;">
@@ -75,9 +66,6 @@
                                     <div class="form-floating mb-3">
                                         <textarea class="form-control" id="{{ guia_form.descripcion.id_for_label }}" name="{{ guia_form.descripcion.html_name }}" placeholder="Descripción" required></textarea>
                                         <label for="{{ guia_form.descripcion.id_for_label }}">Descripción</label>
-                                        {% for error in guia_form.descripcion.errors %}
-                                            <div class="invalid-feedback d-block">{{ error }}</div>
-                                        {% endfor %}
                                     </div>
                                 </div>
 
@@ -86,9 +74,6 @@
                                     <div class="form-floating mb-3">
                                         <textarea class="form-control" id="{{ modelo_form.descripcion.id_for_label }}" name="{{ modelo_form.descripcion.html_name }}" placeholder="Descripción" required></textarea>
                                         <label for="{{ modelo_form.descripcion.id_for_label }}">Descripción</label>
-                                        {% for error in modelo_form.descripcion.errors %}
-                                            <div class="invalid-feedback d-block">{{ error }}</div>
-                                        {% endfor %}
                                     </div>
                                     <div class="form-floating mb-3">
                                         <select class="form-select" id="{{ modelo_form.tipo.id_for_label }}" name="{{ modelo_form.tipo.html_name }}" required>
@@ -97,9 +82,6 @@
                                             {% endfor %}
                                         </select>
                                         <label for="{{ modelo_form.tipo.id_for_label }}">Tipo</label>
-                                        {% for error in modelo_form.tipo.errors %}
-                                            <div class="invalid-feedback d-block">{{ error }}</div>
-                                        {% endfor %}
                                     </div>
                                 </div>
 
@@ -108,9 +90,6 @@
                                     <div class="form-floating mb-3">
                                         <textarea class="form-control" id="{{ biomodelo_form.descripcion.id_for_label }}" name="{{ biomodelo_form.descripcion.html_name }}" placeholder="Descripción" required></textarea>
                                         <label for="{{ biomodelo_form.descripcion.id_for_label }}">Descripción</label>
-                                        {% for error in biomodelo_form.descripcion.errors %}
-                                            <div class="invalid-feedback d-block">{{ error }}</div>
-                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
@@ -118,7 +97,7 @@
                     </div>
                 </div>
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary w-100 py-2">Guardar Trabajo</button>
+                    <button id="submit_impresion3d" type="submit" class="btn btn-primary w-100 py-2">Guardar Trabajo</button>
                 </div>
             </form>
         </div>
@@ -128,27 +107,8 @@
 
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'js/impresion_3d/cargar_tipos_impresion.js' %}"></script>
 <script src="{% static 'js/validaciones/validar_rut.js' %}"></script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const tipoImpresion3DSelect = document.getElementById('tipoImpresion3D');
-        const guiaQuirurgicaForm = document.getElementById('guiaQuirurgicaForm');
-        const modeloForm = document.getElementById('modeloForm');
-        const biomodeloForm = document.getElementById('biomodeloForm');
-
-        tipoImpresion3DSelect.addEventListener('change', function () {
-            guiaQuirurgicaForm.style.display = 'none';
-            modeloForm.style.display = 'none';
-            biomodeloForm.style.display = 'none';
-
-            if (this.value === 'guia_quirurgica') {
-                guiaQuirurgicaForm.style.display = 'block';
-            } else if (this.value === 'modelo') {
-                modeloForm.style.display = 'block';
-            } else if (this.value === 'biomodelo') {
-                biomodeloForm.style.display = 'block';
-            }
-        });
-    });
-</script>
+<script src="{% static "js/validaciones/validar_formularios.js" %}"></script>
+<script src="{% static "js/impresion_3d/agregar_impresion_3d.js" %}"></script>
 {% endblock %}

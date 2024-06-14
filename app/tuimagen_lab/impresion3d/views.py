@@ -1,5 +1,5 @@
-# views.py
 from django.shortcuts import render, redirect
+from django.http import JsonResponse
 from .forms import GuiaQuirurgicaForm, ModeloForm, BiomodeloForm
 from trabajos.forms import TrabajoForm
 from pacientes.forms import PacienteForm
@@ -8,6 +8,7 @@ from .models import TrabajoImpresion3D, GuiaQuirurgica, Modelo, Biomodelo
 from trabajos.models import Trabajo
 from pacientes.models import Paciente
 from doctores.models import Doctor
+from pacientes.rut_generico import RutGenerator
 
 def crear_trabajo_impresion3d(request):
     if request.method == 'POST':
@@ -25,6 +26,11 @@ def crear_trabajo_impresion3d(request):
             paciente_nombre = paciente_form.cleaned_data['name']
             doctor_nombre = doctor_form.cleaned_data['name']
 
+            if paciente_rut == 'Sin Rut':
+                generator = RutGenerator()
+                nuevo_rut = generator.generate_unique_rut()
+                paciente_rut = nuevo_rut
+                
             paciente, created = Paciente.objects.get_or_create(rut=paciente_rut)
             paciente.name = paciente_nombre
             paciente.save()
@@ -53,7 +59,7 @@ def crear_trabajo_impresion3d(request):
                 biomodelo.trabajo_impresion3d = trabajo_impresion3d
                 biomodelo.save()
 
-            return redirect('seleccionar_tipo_trabajo')
+            return JsonResponse({'success': True, 'redirect': 'seleccionar_tipo_trabajo'})  # Respuesta exitosa para AJAX
 
     else:
         trabajo_form = TrabajoForm(prefix='trabajo')

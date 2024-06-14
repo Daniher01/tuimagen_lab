@@ -6,7 +6,6 @@ Array.from(rutInputs).forEach(function (input) {
         input.value = formatearRut(input.value);
         validarRut(input.value, input);
 
-        console.log(input.value);
         // limpiar el input
         if(input.value === ''){
             input.classList.remove('is-invalid');
