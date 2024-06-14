@@ -26,7 +26,7 @@
                                         {% endfor %}
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="{{ paciente_form.rut.id_for_label }}" name="{{ paciente_form.rut.html_name }}" placeholder="RUT del Paciente" required>
+                                        <input type="text" class="form-control is-rut" id="{{ paciente_form.rut.id_for_label }}" name="{{ paciente_form.rut.html_name }}" placeholder="RUT del Paciente" required>
                                         <label for="{{ paciente_form.rut.id_for_label }}">RUT del Paciente</label>
                                         {% for error in paciente_form.rut.errors %}
                                             <div class="invalid-feedback d-block">{{ error }}</div>
@@ -154,6 +154,7 @@
 {% block scripts %}
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="{% static "js/validaciones/validar_formularios.js" %}"></script>
+<script src="{% static "js/validaciones/validar_rut.js" %}"></script>
 <script src="{% static "js/fresado/agregar_piezas.js" %}"></script>
 <script src="{% static "js/fresado/agregar_fresado.js" %}"></script>
 {% endblock %}
