@@ -2,12 +2,10 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     e.preventDefault();
 
     const form = document.getElementById('trabajoForm');
-    // validar que los campos del formulario no estén vacíos
-    if (form.checkValidity() === false) {
-        form.classList.add('was-validated');
+    if(!validarFormulario(form)){
         return;
     }
-    form.classList.remove('was-validated');
+
 
     const formData = new FormData(form);
 
@@ -64,3 +62,56 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
         });
     });
 });
+
+function validarFormulario(form) {
+    // Inicializar la validez del formulario como verdadera
+    let isValid = true;
+
+    // Validar que los campos del formulario no estén vacíos
+    if (!form.checkValidity()) {
+        form.classList.add('was-validated');
+
+        // Agregar clase is-invalid a los select y input de piezas
+        document.querySelectorAll('#piezas-container select, #piezas-container input').forEach(function (input) {
+            if (!input.value || input.value.trim() === '') {
+                input.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                input.classList.remove('is-invalid');
+                input.classList.add('is-valid');
+            }
+        });
+
+        // También validar los otros campos del formulario fuera de piezas
+        form.querySelectorAll('input, select, textarea').forEach(function (input) {
+            if (input.closest('#piezas-container') === null) { // Excluir los que están dentro de piezas-container
+                if (!input.value || input.value.trim() === '') {
+                    input.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    input.classList.remove('is-invalid');
+                    input.classList.add('is-valid');
+                }
+            }
+        });
+
+        return isValid;
+    }
+
+    form.classList.remove('was-validated');
+    // Quitar la clase is-invalid de los select y input de piezas
+    document.querySelectorAll('#piezas-container select, #piezas-container input').forEach(function (input) {
+        input.classList.remove('is-invalid');
+        input.classList.add('is-valid');
+    });
+
+    // Quitar la clase is-invalid de los otros campos del formulario fuera de piezas
+    form.querySelectorAll('input, select, textarea').forEach(function (input) {
+        if (input.closest('#piezas-container') === null) { // Excluir los que están dentro de piezas-container
+            input.classList.remove('is-invalid');
+            input.classList.add('is-valid');
+        }
+    });
+
+    return true;
+}

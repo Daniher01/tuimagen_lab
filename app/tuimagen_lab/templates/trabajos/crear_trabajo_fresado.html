@@ -82,7 +82,6 @@
                                                 </select>
                                                 
                                                 <label for="{{ form.tipo_pieza.id_for_label }}">Tipo</label>
-                                                <div class="invalid-feedback">Campo requerido</div>
                                             </div>
                                             <div class="form-floating mb-3 flex-fill me-1">
                                                 <select class="form-select" id="{{ form.material.id_for_label }}" name="{{ form.material.html_name }}" required>
@@ -91,12 +90,10 @@
                                                     {% endfor %}
                                                 </select>
                                                 <label for="{{ form.material.id_for_label }}">Material</label>
-                                                <div class="invalid-feedback">Campo requerido</div>
                                             </div>
                                             <div class="form-floating mb-3 flex-fill me-1">
                                                 <input type="text" class="form-control" id="{{ form.bloque.id_for_label }}" name="{{ form.bloque.html_name }}" placeholder="Bloque" required>
                                                 <label for="{{ form.bloque.id_for_label }}">Bloque</label>
-                                                <div class="invalid-feedback">Campo requerido</div>
                                             </div>
                                             <div class="form-floating mb-3 flex-shrink-0">
                                                 <button type="button" class="btn btn-danger mb-3 remove-pieza">
