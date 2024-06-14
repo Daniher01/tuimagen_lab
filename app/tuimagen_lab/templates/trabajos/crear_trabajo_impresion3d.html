@@ -1,0 +1,154 @@
+<!-- crear_trabajo_impresion3d.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block main_class %}center-login{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h1 mb-0 text-gray-800">Impresión 3D</h1>
+            </div>
+            <form id="trabajoForm" method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <!-- Tarjeta para Datos del Paciente, Doctor y Trabajo -->
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h4 class="h5 my-4 text-gray-800">Datos del Paciente</h4>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="{{ paciente_form.name.id_for_label }}" name="{{ paciente_form.name.html_name }}" placeholder="Nombre del Paciente" required>
+                                    <label for="{{ paciente_form.name.id_for_label }}">Nombre del Paciente</label>
+                                    {% for error in paciente_form.name.errors %}
+                                        <div class="invalid-feedback d-block">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="{{ paciente_form.rut.id_for_label }}" name="{{ paciente_form.rut.html_name }}" placeholder="RUT del Paciente" required>
+                                    <label for="{{ paciente_form.rut.id_for_label }}">RUT del Paciente</label>
+                                    {% for error in paciente_form.rut.errors %}
+                                        <div class="invalid-feedback d-block">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+
+                                <h4 class="h5 my-4 text-gray-800">Datos del Doctor</h4>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="{{ doctor_form.name.id_for_label }}" name="{{ doctor_form.name.html_name }}" placeholder="Nombre del Doctor" required>
+                                    <label for="{{ doctor_form.name.id_for_label }}">Nombre del Doctor</label>
+                                    {% for error in doctor_form.name.errors %}
+                                        <div class="invalid-feedback d-block">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+
+                                <h4 class="h5 my-4 text-gray-800">Datos del Trabajo</h4>
+                                <div class="form-floating mb-3">
+                                    <input type="date" class="form-control" id="{{ trabajo_form.fecha_entrega.id_for_label }}" name="{{ trabajo_form.fecha_entrega.html_name }}" placeholder="Fecha de Entrega" required>
+                                    <label for="{{ trabajo_form.fecha_entrega.id_for_label }}">Fecha de Entrega</label>
+                                    {% for error in trabajo_form.fecha_entrega.errors %}
+                                        <div class="invalid-feedback d-block">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta para Selección de Tipo de Impresión 3D -->
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h4 class="h5 my-4 text-gray-800">Seleccione el Tipo de Impresión 3D</h4>
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="tipoImpresion3D" name="tipo_impresion_3d" required>
+                                        <option value="">Seleccione una opción</option>
+                                        <option value="guia_quirurgica">Guía Quirúrgica</option>
+                                        <option value="modelo">Modelo</option>
+                                        <option value="biomodelo">Biomodelo</option>
+                                    </select>
+                                    <label for="tipoImpresion3D">Tipo de Impresión 3D</label>
+                                    <div class="invalid-feedback">Campo requerido</div>
+                                </div>
+
+                                <div id="guiaQuirurgicaForm" style="display:none;">
+                                    <h4 class="h5 my-4 text-gray-800">Detalles de la Guía Quirúrgica</h4>
+                                    <div class="form-floating mb-3">
+                                        <textarea class="form-control" id="{{ guia_form.descripcion.id_for_label }}" name="{{ guia_form.descripcion.html_name }}" placeholder="Descripción" required></textarea>
+                                        <label for="{{ guia_form.descripcion.id_for_label }}">Descripción</label>
+                                        {% for error in guia_form.descripcion.errors %}
+                                            <div class="invalid-feedback d-block">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div id="modeloForm" style="display:none;">
+                                    <h4 class="h5 my-4 text-gray-800">Detalles del Modelo</h4>
+                                    <div class="form-floating mb-3">
+                                        <textarea class="form-control" id="{{ modelo_form.descripcion.id_for_label }}" name="{{ modelo_form.descripcion.html_name }}" placeholder="Descripción" required></textarea>
+                                        <label for="{{ modelo_form.descripcion.id_for_label }}">Descripción</label>
+                                        {% for error in modelo_form.descripcion.errors %}
+                                            <div class="invalid-feedback d-block">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <select class="form-select" id="{{ modelo_form.tipo.id_for_label }}" name="{{ modelo_form.tipo.html_name }}" required>
+                                            {% for choice in modelo_form.tipo.field.choices %}
+                                                <option value="{{ choice.0 }}" {% if choice.0 == modelo_form.tipo.value %}selected{% endif %}>{{ choice.1 }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <label for="{{ modelo_form.tipo.id_for_label }}">Tipo</label>
+                                        {% for error in modelo_form.tipo.errors %}
+                                            <div class="invalid-feedback d-block">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div id="biomodeloForm" style="display:none;">
+                                    <h4 class="h5 my-4 text-gray-800">Detalles del Biomodelo</h4>
+                                    <div class="form-floating mb-3">
+                                        <textarea class="form-control" id="{{ biomodelo_form.descripcion.id_for_label }}" name="{{ biomodelo_form.descripcion.html_name }}" placeholder="Descripción" required></textarea>
+                                        <label for="{{ biomodelo_form.descripcion.id_for_label }}">Descripción</label>
+                                        {% for error in biomodelo_form.descripcion.errors %}
+                                            <div class="invalid-feedback d-block">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary w-100 py-2">Guardar Trabajo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'js/validaciones/validar_rut.js' %}"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const tipoImpresion3DSelect = document.getElementById('tipoImpresion3D');
+        const guiaQuirurgicaForm = document.getElementById('guiaQuirurgicaForm');
+        const modeloForm = document.getElementById('modeloForm');
+        const biomodeloForm = document.getElementById('biomodeloForm');
+
+        tipoImpresion3DSelect.addEventListener('change', function () {
+            guiaQuirurgicaForm.style.display = 'none';
+            modeloForm.style.display = 'none';
+            biomodeloForm.style.display = 'none';
+
+            if (this.value === 'guia_quirurgica') {
+                guiaQuirurgicaForm.style.display = 'block';
+            } else if (this.value === 'modelo') {
+                modeloForm.style.display = 'block';
+            } else if (this.value === 'biomodelo') {
+                biomodeloForm.style.display = 'block';
+            }
+        });
+    });
+</script>
+{% endblock %}
