@@ -80,10 +80,9 @@
                                                         <option value="{{ choice.0 }}" {% if choice.0 == form.tipo_pieza.value %}selected{% endif %}>{{ choice.1 }}</option>
                                                     {% endfor %}
                                                 </select>
+                                                
                                                 <label for="{{ form.tipo_pieza.id_for_label }}">Tipo</label>
-                                                {% for error in form.tipo_pieza.errors %}
-                                                    <div class="invalid-feedback d-block">{{ error }}</div>
-                                                {% endfor %}
+                                                <div class="invalid-feedback">Campo requerido</div>
                                             </div>
                                             <div class="form-floating mb-3 flex-fill me-1">
                                                 <select class="form-select" id="{{ form.material.id_for_label }}" name="{{ form.material.html_name }}" required>
@@ -92,16 +91,12 @@
                                                     {% endfor %}
                                                 </select>
                                                 <label for="{{ form.material.id_for_label }}">Material</label>
-                                                {% for error in form.material.errors %}
-                                                    <div class="invalid-feedback d-block">{{ error }}</div>
-                                                {% endfor %}
+                                                <div class="invalid-feedback">Campo requerido</div>
                                             </div>
                                             <div class="form-floating mb-3 flex-fill me-1">
                                                 <input type="text" class="form-control" id="{{ form.bloque.id_for_label }}" name="{{ form.bloque.html_name }}" placeholder="Bloque" required>
                                                 <label for="{{ form.bloque.id_for_label }}">Bloque</label>
-                                                {% for error in form.bloque.errors %}
-                                                    <div class="invalid-feedback d-block">{{ error }}</div>
-                                                {% endfor %}
+                                                <div class="invalid-feedback">Campo requerido</div>
                                             </div>
                                             <div class="form-floating mb-3 flex-shrink-0">
                                                 <button type="button" class="btn btn-danger mb-3 remove-pieza">
@@ -112,6 +107,7 @@
                                     </div>
                                 {% endfor %}
                             </div>
+                            
                             <div class="text-center">
                                 <button type="button" id="submitBtn" class="btn btn-primary w-100 py-2">Guardar Trabajo</button>
                             </div>

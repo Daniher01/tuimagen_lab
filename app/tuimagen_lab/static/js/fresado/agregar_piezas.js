@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', function () {
         // Clear the selected values in the cloned form
         newPiezaForm.querySelectorAll('select').forEach(function (select) {
             select.selectedIndex = 0; // Set to the default value (first option)
+            select.classList.remove('is-valid', 'is-invalid');
         });
 
         var piezasContainer = document.getElementById('piezas-container');
@@ -58,9 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
             }
         });
     });
-    
 
     updateRemoveButtons();
     updateFormIndices();  // Ensure indices are correct on initial load
 });
-

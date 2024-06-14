@@ -1,15 +1,15 @@
 document.getElementById('submitBtn').addEventListener('click', function (e) {
-    e.preventDefault(); // Prevent the default form submission
+    e.preventDefault();
 
     const form = document.getElementById('trabajoForm');
-    const formData = new FormData(form);
-
-    // Remove all previous pieza form data from FormData
-    for (let pair of [...formData.entries()]) {  // Create a copy of the entries to avoid modifying the iterator during the loop
-        if (pair[0].startsWith('pieza-0')) {
-            formData.delete(pair[0]);
-        }
+    // validar que los campos del formulario no estén vacíos
+    if (form.checkValidity() === false) {
+        form.classList.add('was-validated');
+        return;
     }
+    form.classList.remove('was-validated');
+
+    const formData = new FormData(form);
 
     // Ensure all select values are included in the form data
     document.querySelectorAll('.pieza-form').forEach(function (piezaForm) {
