@@ -13,6 +13,13 @@ Array.from(rutInputs).forEach(function (input) {
         }
     });
 
+    input.addEventListener('keydown', function (event) {
+        const key = event.key.toLowerCase();
+        if (!((key >= '0' && key <= '9') || key === 'k' || key === 'backspace' || key === 'delete' || key === 'arrowleft' || key === 'arrowright' || key === 'tab')) {
+            event.preventDefault();
+        }
+    });
+
 });
 
 extranjeroCheckbox.addEventListener('change', function() {
@@ -65,7 +72,7 @@ function validarRut(rutValue, inputElement) {
 }
 
 function formatearRut(rut) {
-    let rutSinFormato = rut.replace(/\./g, '').replace('-', '');
+    let rutSinFormato = rut.replace(/\./g, '').replace('-', '').toUpperCase();
     let rutFormateado = '';
     let contador = 0;
 
