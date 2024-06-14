@@ -19,13 +19,13 @@
     - Material
         - Feldesfato
         - Disilicato
+        - Resina
     - Bloque
 - Maquillaje
     - Si
     - No
 ### Impresion 3D
-#### Tipo de impresión
-- Guia quirurjica
+- Guia quirurgica
     - Desccripcion
 - Modelo
     - Superior
