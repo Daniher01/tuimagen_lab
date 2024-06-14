@@ -1,4 +1,5 @@
 const rutInputs = document.getElementsByClassName('is-rut');
+const extranjeroCheckbox = document.getElementById('extranjero');
 
 Array.from(rutInputs).forEach(function (input) {
     input.addEventListener('keyup', function () {
@@ -12,6 +13,21 @@ Array.from(rutInputs).forEach(function (input) {
         }
     });
 
+});
+
+extranjeroCheckbox.addEventListener('change', function() {
+    Array.from(rutInputs).forEach(function(input) {
+        if (extranjeroCheckbox.checked) {
+            input.value = 'Sin Rut';
+            input.classList.remove('is-invalid');
+            input.classList.add('is-valid');
+            input.setAttribute('readonly', true);
+        } else {
+            input.value = '';
+            input.removeAttribute('readonly');
+            input.classList.remove('is-valid', 'is-invalid');
+        }
+    });
 });
 
 function validarRut(rutValue, inputElement) {

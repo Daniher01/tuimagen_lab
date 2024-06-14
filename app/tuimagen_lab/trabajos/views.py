@@ -9,6 +9,7 @@ from .models import Trabajo
 from fresado.models import TrabajoFresado, Pieza
 from pacientes.models import Paciente
 from doctores.models import Doctor
+from pacientes.rut_generico import RutGenerator
 
 # Create your views here.
 def seleccionar_tipo_trabajo(request):
@@ -30,6 +31,12 @@ def crear_trabajo_fresado(request):
             paciente_rut = paciente_form.cleaned_data['rut']
             paciente_nombre = paciente_form.cleaned_data['name']
             doctor_nombre = doctor_form.cleaned_data['name']
+
+            # verifica y el paciente tiene o no un rut
+            if paciente_rut == 'Sin Rut':
+                generator = RutGenerator()
+                nuevo_rut = generator.generate_unique_rut()
+                paciente_rut = nuevo_rut
 
             # Crear o actualizar paciente
             paciente, created = Paciente.objects.get_or_create(rut=paciente_rut)

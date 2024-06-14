@@ -19,20 +19,23 @@
                                     {% csrf_token %}
                                     <h4 class="h5 my-4 text-gray-800">Datos del Paciente</h4>
                                     <div class="form-floating mb-3">
-                                        <input type="text" class="form-control" id="{{ paciente_form.name.id_for_label }}" name="{{ paciente_form.name.html_name }}" placeholder="Nombre del Paciente" required>
-                                        <label for="{{ paciente_form.name.id_for_label }}">Nombre del Paciente</label>
-                                        {% for error in paciente_form.name.errors %}
-                                            <div class="invalid-feedback d-block">{{ error }}</div>
-                                        {% endfor %}
-                                    </div>
-                                    <div class="form-floating mb-3">
                                         <input type="text" class="form-control is-rut" id="{{ paciente_form.rut.id_for_label }}" name="{{ paciente_form.rut.html_name }}" placeholder="RUT del Paciente" required>
                                         <label for="{{ paciente_form.rut.id_for_label }}">RUT del Paciente</label>
                                         {% for error in paciente_form.rut.errors %}
                                             <div class="invalid-feedback d-block">{{ error }}</div>
                                         {% endfor %}
                                     </div>
-
+                                    <div class="form-check mb-3">
+                                        <input type="checkbox" id="extranjero" class="form-check-input">
+                                        <label for="extranjero" class="form-check-label">Extranjero</label>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <input type="text" class="form-control" id="{{ paciente_form.name.id_for_label }}" name="{{ paciente_form.name.html_name }}" placeholder="Nombre del Paciente" required>
+                                        <label for="{{ paciente_form.name.id_for_label }}">Nombre del Paciente</label>
+                                        {% for error in paciente_form.name.errors %}
+                                            <div class="invalid-feedback d-block">{{ error }}</div>
+                                        {% endfor %}
+                                    </div>
                                     <h4 class="h5 my-4 text-gray-800">Datos del Doctor</h4>
                                     <div class="form-floating mb-3">
                                         <input type="text" class="form-control" id="{{ doctor_form.name.id_for_label }}" name="{{ doctor_form.name.html_name }}" placeholder="Nombre del Doctor" required>
@@ -50,8 +53,8 @@
                                             <div class="invalid-feedback d-block">{{ error }}</div>
                                         {% endfor %}
                                     </div>
-                                    <div class="form-check mb-3">
-                                        <input type="checkbox" class="form-check-input" id="{{ trabajo_form.con_maquillaje.id_for_label }}" name="{{ trabajo_form.con_maquillaje.html_name }}" {% if trabajo_form.con_maquillaje.value %}checked{% endif %}>
+                                    <div class="form-check mb-3" >
+                                        <input type="checkbox" class="form-check-input" role="switch" id="{{ trabajo_form.con_maquillaje.id_for_label }}" name="{{ trabajo_form.con_maquillaje.html_name }}" {% if trabajo_form.con_maquillaje.value %}checked{% endif %}>
                                         <label class="form-check-label" for="{{ trabajo_form.con_maquillaje.id_for_label }}">Con Maquillaje</label>
                                         {% for error in trabajo_form.con_maquillaje.errors %}
                                             <div class="invalid-feedback d-block">{{ error }}</div>
