@@ -10,11 +10,39 @@ tipoImpresion3DSelect.addEventListener('change', function () {
     modeloForm.style.display = 'none';
     biomodeloForm.style.display = 'none';
 
+    // quitar el atributo required en los form que no se usan
+    let required_guiaquirurgica = guiaQuirurgicaForm.querySelectorAll('input, textarea, select')
+    required_guiaquirurgica.forEach(function(element) {
+        element.removeAttribute('required');
+    });
+
+    let required_modelo = modeloForm.querySelectorAll('input, textarea, select')
+    required_modelo.forEach(function(element) {
+        element.removeAttribute('required');
+    });
+
+    let required_biomodelo = biomodeloForm.querySelectorAll('input, textarea, select')
+    required_biomodelo.forEach(function(element) {
+        element.removeAttribute('required');
+    });
+
     if (this.value === 'guia_quirurgica') {
         guiaQuirurgicaForm.style.display = 'block';
+        //agregar el required
+        required_guiaquirurgica.forEach(function(element) {
+            element.setAttribute('required', '');
+        });
     } else if (this.value === 'modelo') {
         modeloForm.style.display = 'block';
+        //agregar el required
+        required_modelo.forEach(function(element) {
+            element.setAttribute('required', '');
+        });
     } else if (this.value === 'biomodelo') {
         biomodeloForm.style.display = 'block';
+        //agregar el required
+        required_biomodelo.forEach(function(element) {
+            element.setAttribute('required', '');
+        });
     }
 });
