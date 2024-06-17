@@ -1,0 +1,68 @@
+<!-- crear_trabajo_escaneo_intraoral.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block main_class %}center-login{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12">
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                <h1 class="h1 mb-0 text-gray-800">Escaneo Intraoral</h1>
+            </div>
+            <form id="trabajoForm_escaneo_intraoral" method="post" class="needs-validation" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <!-- Tarjeta para Datos del Paciente, Doctor y Trabajo -->
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                {% include "trabajos/forms/form_paciente.html" %}
+                                {% include "trabajos/forms/form_doctor.html" %}
+                                {% include "trabajos/forms/form_trabajo_fecha.html" %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tarjeta para Detalles de Escaneo Intraoral -->
+                    <div class="col-md-6">
+                        <div class="card mb-4">
+                            <div class="card-body">
+                                <h4 class="h5 my-4 text-gray-800">Detalles del Escaneo Intraoral</h4>
+                                <div class="form-floating mb-3">
+                                    <select class="form-select" id="{{ escaneo_form.tipo_escaneo.id_for_label }}" name="{{ escaneo_form.tipo_escaneo.html_name }}" required>
+                                        {% for choice in escaneo_form.tipo_escaneo.field.choices %}
+                                            <option value="{{ choice.0 }}" {% if choice.0 == escaneo_form.tipo_escaneo.value %}selected{% endif %}>{{ choice.1 }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <label for="{{ escaneo_form.tipo_escaneo.id_for_label }}">Tipo de Escaneo</label>
+                                    {% for error in escaneo_form.tipo_escaneo.errors %}
+                                        <div class="invalid-feedback d-block">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="{{ escaneo_form.lugar_escaneo.id_for_label }}" name="{{ escaneo_form.lugar_escaneo.html_name }}" placeholder="Lugar de Escaneo" required>
+                                    <label for="{{ escaneo_form.lugar_escaneo.id_for_label }}">Lugar de Escaneo</label>
+                                    {% for error in escaneo_form.lugar_escaneo.errors %}
+                                        <div class="invalid-feedback d-block">{{ error }}</div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button id="submit_escaneo_intraoral" type="submit" class="btn btn-primary w-100 py-2">Guardar Trabajo</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="{% static 'js/validaciones/validar_rut.js' %}"></script>
+<script src="{% static "js/validaciones/validar_formularios.js" %}"></script>
+<script src="{% static "js/escaneo_intraoral/agregar_escaneo_intraoral.js" %}"></script>
+{% endblock %}
