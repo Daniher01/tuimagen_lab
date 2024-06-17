@@ -59,7 +59,7 @@ def crear_trabajo_impresion3d(request):
                 biomodelo.trabajo_impresion3d = trabajo_impresion3d
                 biomodelo.save()
 
-            return JsonResponse({'success': True, 'redirect': 'seleccionar_tipo_trabajo'})  # Respuesta exitosa para AJAX
+            return JsonResponse({'success': True, 'redirect': 'seleccionar_tipo_trabajo'})
 
     else:
         trabajo_form = TrabajoForm(prefix='trabajo')
@@ -68,10 +68,8 @@ def crear_trabajo_impresion3d(request):
         guia_form = GuiaQuirurgicaForm(prefix='guia')
         modelo_form = ModeloForm(prefix='modelo')
         biomodelo_form = BiomodeloForm(prefix='biomodelo')
-        
-                                        #         <option value="guia_quirurgica">Guía Quirúrgica</option>
-                                        # <option value="modelo">Modelo</option>
-                                        # <option value="biomodelo">Biomodelo</option>
+    
+    lista_doctores = Doctor.objects.all()
     tipos_impresion3d = [
         {
             'value': 'guia_quirurgica',
@@ -86,13 +84,16 @@ def crear_trabajo_impresion3d(request):
             'nombre': 'Biomodelo'
         },
     ]
-
+    
     return render(request, 'trabajos/crear_trabajo_impresion3d.html', {
+        # formularios
         'trabajo_form': trabajo_form,
         'paciente_form': paciente_form,
         'doctor_form': doctor_form,
         'guia_form': guia_form,
         'modelo_form': modelo_form,
         'biomodelo_form': biomodelo_form,
+        # datos para cargar los formularios
+        'lista_doctores': lista_doctores,
         'tipos_impresion3d': tipos_impresion3d
     })

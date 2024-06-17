@@ -76,10 +76,15 @@ def crear_trabajo_fresado(request):
         pieza_formset = PiezaFormSet(prefix='pieza')
         paciente_form = PacienteForm(prefix='paciente')
         doctor_form = DoctorForm(prefix='doctor')
+        
+    lista_doctores = Doctor.objects.all()
 
     return render(request, 'trabajos/crear_trabajo_fresado.html', {
+        # formularios
         'trabajo_form': trabajo_form,
         'pieza_formset': pieza_formset,
         'paciente_form': paciente_form,
         'doctor_form': doctor_form,
+        # datos para los formularios
+        'lista_doctores': lista_doctores
     })

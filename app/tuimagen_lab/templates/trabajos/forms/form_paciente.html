@@ -2,9 +2,6 @@
 <div class="form-floating mb-3">
     <input type="text" class="form-control is-rut" id="{{ paciente_form.rut.id_for_label }}" name="{{ paciente_form.rut.html_name }}" placeholder="RUT del Paciente" required>
     <label for="{{ paciente_form.rut.id_for_label }}">RUT del Paciente</label>
-    {% for error in paciente_form.rut.errors %}
-        <div class="invalid-feedback d-block">{{ error }}</div>
-    {% endfor %}
 </div>
 <div class="form-check mb-3">
     <input type="checkbox" id="extranjero" class="form-check-input">
@@ -13,7 +10,4 @@
 <div class="form-floating mb-3">
     <input type="text" class="form-control" id="{{ paciente_form.name.id_for_label }}" name="{{ paciente_form.name.html_name }}" placeholder="Nombre del Paciente" required>
     <label for="{{ paciente_form.name.id_for_label }}">Nombre del Paciente</label>
-    {% for error in paciente_form.name.errors %}
-        <div class="invalid-feedback d-block">{{ error }}</div>
-    {% endfor %}
 </div>
