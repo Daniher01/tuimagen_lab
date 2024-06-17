@@ -1,0 +1,8 @@
+<h4 class="h5 my-4 text-gray-800">Datos del Trabajo</h4>
+<div class="form-floating mb-3">
+    <input type="date" class="form-control" id="{{ trabajo_form.fecha_entrega.id_for_label }}" name="{{ trabajo_form.fecha_entrega.html_name }}" placeholder="Fecha de Entrega" required>
+    <label for="{{ trabajo_form.fecha_entrega.id_for_label }}">Fecha de Entrega</label>
+    {% for error in trabajo_form.fecha_entrega.errors %}
+        <div class="invalid-feedback d-block">{{ error }}</div>
+    {% endfor %}
+</div>
