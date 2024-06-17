@@ -2,7 +2,7 @@ const rutInputs = document.getElementsByClassName('is-rut');
 const extranjeroCheckbox = document.getElementById('extranjero');
 
 Array.from(rutInputs).forEach(function (input) {
-    input.addEventListener('keyup', function () {
+    input.addEventListener('input', function () {
         input.value = formatearRut(input.value);
         validarRut(input.value, input);
 
@@ -14,7 +14,7 @@ Array.from(rutInputs).forEach(function (input) {
 
     input.addEventListener('keydown', function (event) {
         const key = event.key.toLowerCase();
-        if (!((key >= '0' && key <= '9') || key === 'k' || key === 'backspace' || key === 'delete' || key === 'arrowleft' || key === 'arrowright' || key === 'tab')) {
+        if (!((key >= '0' && key <= '9') || key === 'k' || key === 'backspace' || key === 'delete' || key === 'arrowleft' || key === 'arrowright' || key === 'tab' || (isControlKey && (key === 'v' || key === 'c' || key === 'x')))) {
             event.preventDefault();
         }
     });
