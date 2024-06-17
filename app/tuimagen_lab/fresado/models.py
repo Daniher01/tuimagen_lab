@@ -10,12 +10,9 @@ class TrabajoFresado(models.Model):
         return f'Trabajo de fresado para {self.trabajo.paciente}'
 
 class Pieza(models.Model):
-    
-    MATERIALES = MATERIALES
-    TIPOS_PIEZA = PIEZAS
 
     trabajo_fresado = models.ForeignKey(TrabajoFresado, related_name='piezas', on_delete=models.CASCADE)
-    tipo_pieza = models.CharField(max_length=50, choices=TIPOS_PIEZA)
+    tipo_pieza = models.CharField(max_length=50, choices=PIEZAS)
     material = models.CharField(max_length=20, choices=MATERIALES)
     bloque = models.CharField(max_length=255)
 
