@@ -54,9 +54,9 @@
                                 <div class="form-floating mb-3">
                                     <select class="form-select" id="tipoImpresion3D" name="tipo_impresion_3d" required>
                                         <option value="">Seleccione una opción</option>
-                                        <option value="guia_quirurgica">Guía Quirúrgica</option>
-                                        <option value="modelo">Modelo</option>
-                                        <option value="biomodelo">Biomodelo</option>
+                                        {% for tipo in tipos_impresion3d %}
+                                            <option value="{{ tipo.value }}" >{{ tipo.nombre }}</option>
+                                        {% endfor %}
                                     </select>
                                     <label for="tipoImpresion3D">Tipo de Impresión 3D</label>
                                 </div>

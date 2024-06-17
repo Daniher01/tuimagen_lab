@@ -68,6 +68,24 @@ def crear_trabajo_impresion3d(request):
         guia_form = GuiaQuirurgicaForm(prefix='guia')
         modelo_form = ModeloForm(prefix='modelo')
         biomodelo_form = BiomodeloForm(prefix='biomodelo')
+        
+                                        #         <option value="guia_quirurgica">Guía Quirúrgica</option>
+                                        # <option value="modelo">Modelo</option>
+                                        # <option value="biomodelo">Biomodelo</option>
+    tipos_impresion3d = [
+        {
+            'value': 'guia_quirurgica',
+            'nombre': 'Guía Quirúrgica'
+        },
+        {
+            'value': 'modelo',
+            'nombre': 'Modelo'
+        },
+        {
+            'value': 'biomodelo',
+            'nombre': 'Biomodelo'
+        },
+    ]
 
     return render(request, 'trabajos/crear_trabajo_impresion3d.html', {
         'trabajo_form': trabajo_form,
@@ -76,4 +94,5 @@ def crear_trabajo_impresion3d(request):
         'guia_form': guia_form,
         'modelo_form': modelo_form,
         'biomodelo_form': biomodelo_form,
+        'tipos_impresion3d': tipos_impresion3d
     })
