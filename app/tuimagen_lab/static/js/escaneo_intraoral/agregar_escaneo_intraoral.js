@@ -1,16 +1,31 @@
+const formEscaneoIntraoral = document.getElementById('trabajoForm_escaneo_intraoral');
+const submitBtnEscaneoIntraoral = document.getElementById('submit_escaneo_intraoral');
 
-const form = document.getElementById('trabajoForm_escaneo_intraoral');
-const submitBtn = document.getElementById('submit_escaneo_intraoral');
-
-submitBtn.addEventListener('click', function (e) {
+submitBtnEscaneoIntraoral.addEventListener('click', function (e) {
     e.preventDefault();
 
-    if (!validarFormulario(form)) {
+    if (!validarFormulario(formEscaneoIntraoral)) {
         return;
     }
 
-    const formData = new FormData(form);
+    // Mostrar la alerta de confirmación
+    Swal.fire({
+        title: '¿Desea crear el trabajo?',
+        text: 'Está por crear un trabajo de escaneo intraoral',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, crear',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const formData = new FormData(formEscaneoIntraoral);
 
+            enviarFormularioEscaneoIntraoral(formEscaneoIntraoral, formData);
+        }
+    });
+});
+
+function enviarFormularioEscaneoIntraoral(form, formData) {
     fetch(form.action, {
         method: 'POST',
         body: formData,
@@ -20,7 +35,6 @@ submitBtn.addEventListener('click', function (e) {
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
         if (data.success) {
             Swal.fire({
                 title: 'Trabajo generado',
@@ -50,4 +64,4 @@ submitBtn.addEventListener('click', function (e) {
             confirmButtonText: 'OK'
         });
     });
-});
+}

@@ -7,6 +7,7 @@ from doctores.forms import DoctorForm
 from .models import EscaneoIntraoral, Trabajo
 from doctores.models import Doctor
 from pacientes.models import Paciente
+from pacientes.rut_generico import RutGenerator
 
 def crear_trabajo_escaneo_intraoral(request):
     if request.method == 'POST':

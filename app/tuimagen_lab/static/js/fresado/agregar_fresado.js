@@ -2,27 +2,36 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
     e.preventDefault();
 
     const form = document.getElementById('trabajoForm');
-    if(!validarFormulario(form)){
+
+    if (!validarFormulario(form)) {
         return;
     }
 
+    // Mostrar la alerta de confirmación
+    Swal.fire({
+        title: '¿Desea crear el trabajo?',
+        text: 'Está por crear un trabajo de fresado',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sí, crear',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const formData = new FormData(form);
+            
+            // Ensure all select values are included in the form data
+            document.querySelectorAll('.pieza-form').forEach(function (piezaForm) {
+                piezaForm.querySelectorAll('input, select, textarea').forEach(function (input) {
+                    formData.append(input.name, input.value);
+                });
+            });
 
-    const formData = new FormData(form);
-
-    // Ensure all select values are included in the form data
-    document.querySelectorAll('.pieza-form').forEach(function (piezaForm) {
-        piezaForm.querySelectorAll('input, select, textarea').forEach(function (input) {
-            formData.append(input.name, input.value);
-        });
+            enviarFormulario(form, formData);
+        }
     });
+});
 
-    // Log the form data to the console for debugging
-    /*
-    for (let pair of formData.entries()) {
-        console.log(pair[0] + ': ' + pair[1]);
-    }
-    */
-
+function enviarFormulario(form, formData) {
     fetch(form.action, {
         method: 'POST',
         body: formData,
@@ -44,7 +53,7 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
                 }
             });
         } else {
-            console.log(data)
+            console.log(data);
             Swal.fire({
                 title: 'Error',
                 text: 'Hubo un problema al generar el trabajo. Por favor, inténtalo de nuevo.',
@@ -61,4 +70,4 @@ document.getElementById('submitBtn').addEventListener('click', function (e) {
             confirmButtonText: 'OK'
         });
     });
-});
+}
