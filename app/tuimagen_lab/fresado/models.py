@@ -1,5 +1,6 @@
 from django.db import models
 from trabajos.models import Trabajo
+from .load_data import PIEZAS, MATERIALES
 
 class TrabajoFresado(models.Model):
     trabajo = models.OneToOneField(Trabajo, on_delete=models.CASCADE)
@@ -9,17 +10,21 @@ class TrabajoFresado(models.Model):
         return f'Trabajo de fresado para {self.trabajo.paciente}'
 
 class Pieza(models.Model):
+    
+    print(MATERIALES)
     MATERIALES = [
         ('feldespato', 'Feldespato'),
         ('disilicato', 'Disilicato'),
         ('resina', 'Resina'),
     ]
     
-    TIPOS_PIEZA = [
-        ('1.1', '1.1'),
-        ('1.1', '1.2'),
-        # Agrega los tipos de pieza según el esquema proporcionado
-    ]
+    # TIPOS_PIEZA = [
+    #     ('1.1', '1.1'),
+    #     ('1.1', '1.2'),
+    #     # Agrega los tipos de pieza según el esquema proporcionado
+    # ]
+    
+    TIPOS_PIEZA = PIEZAS
 
     trabajo_fresado = models.ForeignKey(TrabajoFresado, related_name='piezas', on_delete=models.CASCADE)
     tipo_pieza = models.CharField(max_length=50, choices=TIPOS_PIEZA)
