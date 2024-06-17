@@ -11,19 +11,7 @@ class TrabajoFresado(models.Model):
 
 class Pieza(models.Model):
     
-    print(MATERIALES)
-    MATERIALES = [
-        ('feldespato', 'Feldespato'),
-        ('disilicato', 'Disilicato'),
-        ('resina', 'Resina'),
-    ]
-    
-    # TIPOS_PIEZA = [
-    #     ('1.1', '1.1'),
-    #     ('1.1', '1.2'),
-    #     # Agrega los tipos de pieza según el esquema proporcionado
-    # ]
-    
+    MATERIALES = MATERIALES
     TIPOS_PIEZA = PIEZAS
 
     trabajo_fresado = models.ForeignKey(TrabajoFresado, related_name='piezas', on_delete=models.CASCADE)
