@@ -100,12 +100,13 @@ def detalle_trabajo_fresado(request, trabajo_id):
     piezas = Pieza.objects.filter(trabajo_fresado=fresado)
 
     data = {
+        'id_trabajo': trabajo.id,
         'paciente_nombre': trabajo.paciente.name,
         'paciente_rut': trabajo.paciente.rut,
         'doctor_nombre': trabajo.doctor.name,
-        'fecha_ingreso': trabajo.fecha_creacion.strftime('%Y-%m-%d'),
-        'fecha_entrega': trabajo.fecha_entrega.strftime('%Y-%m-%d'),
-        'estado': trabajo.estado,
+        'fecha_ingreso': trabajo.fecha_creacion.strftime('%d-%m-%Y'),
+        'fecha_entrega': trabajo.fecha_entrega.strftime('%d-%m-%Y'),
+        'estado': trabajo.get_estado_display(),
         'con_maquillaje': fresado.con_maquillaje,
         'piezas': [{'tipo': pieza.tipo_pieza, 'material': pieza.material, 'bloque': pieza.bloque} for pieza in piezas]
     }
