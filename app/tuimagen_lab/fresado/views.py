@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from trabajos.forms import TrabajoForm
 from fresado.forms import PiezaForm
@@ -8,8 +10,10 @@ from django.forms import inlineformset_factory
 from fresado.models import TrabajoFresado, Pieza
 from pacientes.models import Paciente
 from doctores.models import Doctor
+from trabajos.models import Trabajo
 from pacientes.rut_generico import RutGenerator
 
+@login_required
 def crear_trabajo_fresado(request):
     PiezaFormSet = inlineformset_factory(TrabajoFresado, Pieza, form=PiezaForm, extra=1, can_delete=False)
 
@@ -88,3 +92,22 @@ def crear_trabajo_fresado(request):
         # datos para los formularios
         'lista_doctores': lista_doctores
     })
+
+@login_required
+def detalle_trabajo_fresado(request, trabajo_id):
+    trabajo = get_object_or_404(Trabajo, id=trabajo_id, tipo_trabajo='fresado')
+    fresado = get_object_or_404(TrabajoFresado, trabajo=trabajo)
+    piezas = Pieza.objects.filter(trabajo_fresado=fresado)
+
+    data = {
+        'paciente_nombre': trabajo.paciente.name,
+        'paciente_rut': trabajo.paciente.rut,
+        'doctor_nombre': trabajo.doctor.name,
+        'fecha_ingreso': trabajo.fecha_creacion.strftime('%Y-%m-%d'),
+        'fecha_entrega': trabajo.fecha_entrega.strftime('%Y-%m-%d'),
+        'estado': trabajo.estado,
+        'con_maquillaje': fresado.con_maquillaje,
+        'piezas': [{'tipo': pieza.tipo_pieza, 'material': pieza.material, 'bloque': pieza.bloque} for pieza in piezas]
+    }
+
+    return JsonResponse(data)

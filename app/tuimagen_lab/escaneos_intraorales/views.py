@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .forms import EscaneoIntraoralForm
 from trabajos.forms import TrabajoForm
@@ -9,6 +10,7 @@ from doctores.models import Doctor
 from pacientes.models import Paciente
 from pacientes.rut_generico import RutGenerator
 
+@login_required
 def crear_trabajo_escaneo_intraoral(request):
     if request.method == 'POST':
         paciente_form = PacienteForm(request.POST, prefix='paciente')
