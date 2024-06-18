@@ -3,19 +3,23 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="verTrabajoModalLabel">Impresion 3d</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h5 class="modal-title" id="verTrabajoModalLabel">
+                    Trabajo de Impresion 3D #<strong id="impresion3d-idTrabajo" class="text-primary"></strong> 
+                </h5>
             </div>
             <div class="modal-body">
                 <!-- Aquí se mostrarán los detalles del trabajo -->
-                <p><strong>Nombre del Paciente:</strong> <span id="detallePaciente"></span></p>
-                <p><strong>RUT:</strong> <span id="detalleRut"></span></p>
-                <p><strong>Nombre del Dentista:</strong> <span id="detalleDentista"></span></p>
-                <p><strong>Fecha de Ingreso:</strong> <span id="detalleFechaIngreso"></span></p>
-                <p><strong>Fecha de Entrega:</strong> <span id="detalleFechaEntrega"></span></p>
-                <p><strong>Estado:</strong> <span id="detalleEstado"></span></p>
-                <h5>Piezas</h5>
-                <ul id="detallePiezas"></ul>
+                <p><strong class="text-primary" >RUT:</strong> <span id="impresion3d-detalleRut"></span></p>
+                <p><strong class="text-primary">Nombre del Paciente:</strong> <span id="impresion3d-detallePaciente"></span></p>
+                <p><strong class="text-primary" >Nombre del Doctor:</strong> <span id="impresion3d-detalleDoctor"></span></p>
+                <p><strong class="text-primary" >Fecha de Ingreso:</strong> <span id="impresion3d-detalleFechaIngreso"></span></p>
+                <p><strong class="text-primary" >Fecha de Entrega:</strong> <span id="impresion3d-detalleFechaEntrega"></span></p>
+                <p><strong class="text-primary">Estado:</strong> <span id="impresion3d-detalleEstado"></span></p>
+                <h5>Detalles del Trabajo de Impresión 3D</h5>
+                <p><strong class="text-primary" >Tipo:</strong> <span id="impresion3d-detalleTipo"></span></p>
+                <p><strong class="text-primary" >Descripción:</strong> <span id="impresion3d-detalleDescripcion"></span></p>
+                <p id="impresion3d-detalleModeloTipoContainer" style="display:none;">
+                    <strong class="text-primary" >Modelo Tipo:</strong> <span id="impresion3d-detalleModeloTipo"></span></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

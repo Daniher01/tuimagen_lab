@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .forms import GuiaQuirurgicaForm, ModeloForm, BiomodeloForm
 from trabajos.forms import TrabajoForm
@@ -99,3 +100,42 @@ def crear_trabajo_impresion3d(request):
         'lista_doctores': lista_doctores,
         'tipos_impresion3d': tipos_impresion3d
     })
+
+
+@login_required
+def detalle_trabajo_impresion3d(request, trabajo_id):
+    trabajo = get_object_or_404(Trabajo, id=trabajo_id, tipo_trabajo='impresion_3d')
+    impresion3d = get_object_or_404(TrabajoImpresion3D, trabajo=trabajo)
+    
+    # Inicializa los detalles específicos como vacíos
+    detalles = {}
+
+    # Intenta obtener los detalles específicos para cada tipo de trabajo
+    guia_quirurgica = GuiaQuirurgica.objects.filter(trabajo_impresion3d=impresion3d).first()
+    if guia_quirurgica:
+        detalles['tipo'] = 'Guía Quirúrgica'
+        detalles['descripcion'] = guia_quirurgica.descripcion
+
+    modelo = Modelo.objects.filter(trabajo_impresion3d=impresion3d).first()
+    if modelo:
+        detalles['tipo'] = 'Modelo'
+        detalles['descripcion'] = modelo.descripcion
+        detalles['modelo_tipo'] = modelo.get_tipo_display()  # Obtener el display legible del tipo de modelo
+
+    biomodelo = Biomodelo.objects.filter(trabajo_impresion3d=impresion3d).first()
+    if biomodelo:
+        detalles['tipo'] = 'Biomodelo'
+        detalles['descripcion'] = biomodelo.descripcion
+
+    data = {
+        'trabajo_id': trabajo.id,
+        'paciente_nombre': trabajo.paciente.name,
+        'paciente_rut': trabajo.paciente.rut,
+        'doctor_nombre': trabajo.doctor.name,
+        'fecha_ingreso': trabajo.fecha_creacion.strftime('%d-%m-%Y'),
+        'fecha_entrega': trabajo.fecha_entrega.strftime('%d-%m-%Y'),
+        'estado': trabajo.get_estado_display(),  # Utilizar get_estado_display() para obtener la versión legible
+        'detalles': detalles
+    }
+
+    return JsonResponse(data)
