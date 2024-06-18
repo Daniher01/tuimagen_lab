@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 from .forms import GuiaQuirurgicaForm, ModeloForm, BiomodeloForm
 from trabajos.forms import TrabajoForm
@@ -10,6 +11,7 @@ from pacientes.models import Paciente
 from doctores.models import Doctor
 from pacientes.rut_generico import RutGenerator
 
+@login_required
 def crear_trabajo_impresion3d(request):
     if request.method == 'POST':
         trabajo_form = TrabajoForm(request.POST, prefix='trabajo')

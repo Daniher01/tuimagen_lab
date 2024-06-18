@@ -46,10 +46,12 @@ function enviarFormularioImpresion3D(form, formData) {
                 title: 'Trabajo generado',
                 text: 'El trabajo ha sido generado exitosamente.',
                 icon: 'success',
-                confirmButtonText: 'OK'
+                confirmButtonText: 'OK',
+                allowOutsideClick: false,  // Evita que el modal se cierre al hacer clic fuera
+                allowEscapeKey: false      // Evita que el modal se cierre con la tecla escape
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = `${window.location.origin}/trabajos`;
+                    window.location.href = `${window.location.origin}/pendientes`;
                 }
             });
         } else {
