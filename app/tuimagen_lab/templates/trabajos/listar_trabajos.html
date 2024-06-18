@@ -112,11 +112,11 @@
                             {%endif%}
                         </td>
                         <td>
-                            <a href="#" class="btn btn-outline-primary btn-icon-split" data-bs-toggle="modal" data-bs-target="#verTrabajoModal" data-id="{{ trabajo.id }}">
+                            <a href="#" class="btn btn-outline-primary btn-icon-split" data-bs-toggle="modal" data-bs-target="#{{trabajo.tipo_trabajo}}" data-id="{{ trabajo.id }}">
                                 <span class="icon text-white-50">
-                                    <i class="fa-regular fa-eye fa-fade primary" style="color: #707070;"></i>
+                                    <i class="fa-regular fa-eye fa-fade fa-xs primary" style="color: #707070;"></i>
                                 </span>
-                                <span class="text">Ver</span>
+                                <span class="text">Detalle</span>
                             </a>
                             
                         </td>
@@ -133,32 +133,10 @@
 
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="verTrabajoModal" tabindex="-1" aria-labelledby="verTrabajoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="verTrabajoModalLabel">Detalles del Trabajo</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Aquí se mostrarán los detalles del trabajo -->
-                <p><strong>Nombre del Paciente:</strong> <span id="detallePaciente"></span></p>
-                <p><strong>RUT:</strong> <span id="detalleRut"></span></p>
-                <p><strong>Nombre del Dentista:</strong> <span id="detalleDentista"></span></p>
-                <p><strong>Fecha de Ingreso:</strong> <span id="detalleFechaIngreso"></span></p>
-                <p><strong>Fecha de Entrega:</strong> <span id="detalleFechaEntrega"></span></p>
-                <p><strong>Estado:</strong> <span id="detalleEstado"></span></p>
-                <h5>Piezas</h5>
-                <ul id="detallePiezas"></ul>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
-    </div>
-</div>
-
+{% comment %} modales {% endcomment %}
+{% include "trabajos/modals/impresion_3d.html" %}
+{% include "trabajos/modals/fresado.html" %}
+{% include "trabajos/modals/escaneo_intraoral.html" %}
 
 {% endblock %}
 
