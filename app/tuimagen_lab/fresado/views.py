@@ -10,7 +10,7 @@ from django.forms import inlineformset_factory
 from fresado.models import TrabajoFresado, Pieza
 from pacientes.models import Paciente
 from doctores.models import Doctor
-from trabajos.models import Trabajo
+from trabajos.models import Trabajo, TrabajoDoctor
 from pacientes.rut_generico import RutGenerator
 
 @login_required
@@ -51,6 +51,9 @@ def crear_trabajo_fresado(request):
             trabajo.tipo_trabajo = 'fresado'
             trabajo.estado = 'en_proceso'
             trabajo.save()
+            
+            # asociar trabajos al doctor
+            TrabajoDoctor.objects.create(doctor=doctor, trabajo=trabajo, pagado=False)
 
             # Crear trabajo de fresado
             trabajo_fresado = TrabajoFresado.objects.create(

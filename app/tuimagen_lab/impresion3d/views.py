@@ -7,7 +7,7 @@ from trabajos.forms import TrabajoForm
 from pacientes.forms import PacienteForm
 from doctores.forms import DoctorForm
 from .models import TrabajoImpresion3D, GuiaQuirurgica, Modelo, Biomodelo
-from trabajos.models import Trabajo
+from trabajos.models import Trabajo, TrabajoDoctor
 from pacientes.models import Paciente
 from doctores.models import Doctor
 from pacientes.rut_generico import RutGenerator
@@ -46,6 +46,9 @@ def crear_trabajo_impresion3d(request):
             trabajo.tipo_trabajo = 'impresion_3d'
             trabajo.estado = 'en_proceso'
             trabajo.save()
+            
+            # asociar trabajos al doctor
+            TrabajoDoctor.objects.create(doctor=doctor, trabajo=trabajo, pagado=False)
 
             trabajo_impresion3d = TrabajoImpresion3D.objects.create(trabajo=trabajo)
 

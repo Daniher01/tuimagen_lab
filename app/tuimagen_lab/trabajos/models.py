@@ -26,3 +26,10 @@ class Trabajo(models.Model):
     def __str__(self):
         return f'Trabajo {self.tipo_trabajo} para {self.paciente}'
 
+class TrabajoDoctor(models.Model):
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='trabajos')
+    trabajo = models.ForeignKey(Trabajo, on_delete=models.CASCADE)
+    pagado = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.doctor.name} - {self.trabajo}'
