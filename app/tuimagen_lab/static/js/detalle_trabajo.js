@@ -9,6 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 verDetallesTrabajoFresado(trabajoId);
             }else if (trabajoTipo === 'impresion_3d'){
                 verDetallesTrabajoImpresion3D(trabajoId);
+            }else if (trabajoTipo === 'escaneo_intraoral'){
+                verDetallesTrabajoEscaneoIntraoral(trabajoId);
             }
             // Agregar condiciones para otros tipos de trabajos si es necesario
         });
@@ -86,6 +88,33 @@ function verDetallesTrabajoImpresion3D(trabajoId) {
             }
 
             const modal = new bootstrap.Modal(document.getElementById('impresion_3d'));
+            modal.show();
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+function verDetallesTrabajoEscaneoIntraoral(trabajoId) {
+    // Suponiendo que tienes una API que devuelve los detalles del trabajo
+    fetch(`${window.location.origin}/detalle/escaneo_intraoral/${trabajoId}`)
+        .then(response => response.json())
+        .then(data => {
+            // Asignar los valores recuperados a los elementos del DOM
+            document.getElementById('escaneoIntraoral-idTrabajo').innerText = data.trabajo_id;
+            document.getElementById('escaneoIntraoral-detallePaciente').innerText = data.paciente_nombre;
+            document.getElementById('escaneoIntraoral-detalleRut').innerText = data.paciente_rut;
+            document.getElementById('escaneoIntraoral-detalleDentista').innerText = data.doctor_nombre;
+            document.getElementById('escaneoIntraoral-detalleFechaIngreso').innerText = data.fecha_ingreso;
+            document.getElementById('escaneoIntraoral-detalleFechaEntrega').innerText = data.fecha_entrega;
+            document.getElementById('escaneoIntraoral-detalleTipoEscaneo').innerText = data.tipo_escaneo;
+            document.getElementById('escaneoIntraoral-detalleLugarEscaneo').innerText = data.lugar_escaneo;
+
+                // Asignar estado con clases de Bootstrap
+                const estadoSpan = document.getElementById('escaneoIntraoral-detalleEstado');
+                estadoSpan.innerText = data.estado;
+                estadoSpan.className = 'badge ' + (data.estado === 'completado' ? 'bg-success' : 'bg-warning');
+
+            // Mostrar el modal
+            const modal = new bootstrap.Modal(document.getElementById('escaneo_intraoral'));
             modal.show();
         })
         .catch(error => console.error('Error:', error));

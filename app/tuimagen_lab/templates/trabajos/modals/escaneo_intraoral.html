@@ -3,19 +3,22 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="verTrabajoModalLabel">Escaneo intraoral</h5>
+                <h5 class="modal-title" id="verTrabajoModalLabel">
+                    Escaneo Intraoral #<strong id="escaneoIntraoral-idTrabajo" class="text-primary"></strong> 
+                </h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <!-- Aquí se mostrarán los detalles del trabajo -->
-                <p><strong>Nombre del Paciente:</strong> <span id="detallePaciente"></span></p>
-                <p><strong>RUT:</strong> <span id="detalleRut"></span></p>
-                <p><strong>Nombre del Dentista:</strong> <span id="detalleDentista"></span></p>
-                <p><strong>Fecha de Ingreso:</strong> <span id="detalleFechaIngreso"></span></p>
-                <p><strong>Fecha de Entrega:</strong> <span id="detalleFechaEntrega"></span></p>
-                <p><strong>Estado:</strong> <span id="detalleEstado"></span></p>
-                <h5>Piezas</h5>
-                <ul id="detallePiezas"></ul>
+                <p><strong class="text-primary" >Nombre del Paciente:</strong> <span id="escaneoIntraoral-detallePaciente"></span></p>
+                <p><strong class="text-primary" >RUT:</strong> <span id="escaneoIntraoral-detalleRut"></span></p>
+                <p><strong class="text-primary" >Nombre del Dentista:</strong> <span id="escaneoIntraoral-detalleDentista"></span></p>
+                <p><strong class="text-primary" >Fecha de Ingreso:</strong> <span id="escaneoIntraoral-detalleFechaIngreso"></span></p>
+                <p><strong class="text-primary" >Fecha de Entrega:</strong> <span id="escaneoIntraoral-detalleFechaEntrega"></span></p>
+                <p><strong class="text-primary" >Estado:</strong> <span id="escaneoIntraoral-detalleEstado"></span></p>
+                <h5>Detalles del Escaneo Intraoral</h5>
+                <p><strong class="text-primary" >Tipo de Escaneo:</strong> <span id="escaneoIntraoral-detalleTipoEscaneo"></span></p>
+                <p><strong class="text-primary" >Lugar de Escaneo:</strong> <span id="escaneoIntraoral-detalleLugarEscaneo"></span></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>

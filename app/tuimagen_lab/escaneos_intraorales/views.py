@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 from django.http import JsonResponse
 from .forms import EscaneoIntraoralForm
 from trabajos.forms import TrabajoForm
@@ -63,3 +64,24 @@ def crear_trabajo_escaneo_intraoral(request):
         # datos para los formularios
         'lista_doctores': lista_doctores
     })
+
+@login_required
+def detalle_trabajo_escaneo_intraoral(request, trabajo_id):
+    trabajo = get_object_or_404(Trabajo, id=trabajo_id, tipo_trabajo='escaneo_intraoral')
+    escaneo = get_object_or_404(EscaneoIntraoral, trabajo=trabajo)
+
+    ESTADOS = dict(Trabajo.ESTADOS)
+
+    data = {
+        'trabajo_id': trabajo.id,
+        'paciente_nombre': trabajo.paciente.name,
+        'paciente_rut': trabajo.paciente.rut,
+        'doctor_nombre': trabajo.doctor.name,
+        'fecha_ingreso': trabajo.fecha_creacion.strftime('%d-%m-%Y'),
+        'fecha_entrega': trabajo.fecha_entrega.strftime('%d-%m-%Y'),
+        'estado': ESTADOS.get(trabajo.estado, trabajo.estado),
+        'tipo_escaneo': escaneo.tipo_escaneo,
+        'lugar_escaneo': escaneo.lugar_escaneo,
+    }
+
+    return JsonResponse(data)

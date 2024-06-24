@@ -14,4 +14,5 @@ urlpatterns = [
     # URLs para el detallsd de los trabajos
     path('detalle/fresado/<int:trabajo_id>', fresado.detalle_trabajo_fresado, name='detalle_trabajo_fresado'),
     path('detalle/impresion3d/<int:trabajo_id>', impresion3d.detalle_trabajo_impresion3d, name='detalle_trabajo_impresion3d'),
+    path('detalle/escaneo_intraoral/<int:trabajo_id>/', escaner_intraoral.detalle_trabajo_escaneo_intraoral, name='detalle_trabajo_escaneo_intraoral'),
 ]
