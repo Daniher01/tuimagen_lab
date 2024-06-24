@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import seleccionar_tipo_trabajo, ver_trabajos_pendientes, terminar_trabajo
+from .views import seleccionar_tipo_trabajo, ver_trabajos_pendientes, ver_trabajos_terminados, terminar_trabajo
 from fresado import views as fresado
 from impresion3d import views as impresion3d
 from escaneos_intraorales import views as escaner_intraoral
@@ -7,6 +7,7 @@ from escaneos_intraorales import views as escaner_intraoral
 urlpatterns = [
     path('', seleccionar_tipo_trabajo, name='seleccionar_tipo_trabajo'),
     path('pendientes/', ver_trabajos_pendientes, name='trabajos_pendientes'),
+    path('terminados/', ver_trabajos_terminados, name='trabajos_terminados'),
     # URLs para la creación de los trabajos
     path('crear-trabajo-fresado/', fresado.crear_trabajo_fresado, name='crear_trabajo_fresado'),
     path('crear-trabajo-impresion3d/', impresion3d.crear_trabajo_impresion3d, name='crear_trabajo_impresion3d'),

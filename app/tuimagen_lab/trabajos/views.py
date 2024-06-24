@@ -16,6 +16,23 @@ from pacientes.models import Paciente
 from doctores.models import Doctor
 from pacientes.rut_generico import RutGenerator
 
+def obtener_trabajos_por_estado(ESTADO=None):
+    
+    if not ESTADO:
+        trabajos = Trabajo.objects.all()
+    else:
+        trabajos = Trabajo.objects.filter(estado=ESTADO)
+        
+    total_trabajos = trabajos.values('tipo_trabajo').annotate(total=Count('tipo_trabajo'))
+
+    # cambiar los valores del nombre de los tipos de trabajo
+    TIPOS_DICT = {key: value for key, value in Trabajo.TIPOS}
+    # Reemplazar 'tipo_trabajo' en el queryset
+    for item in total_trabajos:
+        item['tipo_trabajo'] = TIPOS_DICT.get(item['tipo_trabajo'], item['tipo_trabajo'])
+  
+    return trabajos, total_trabajos
+
 # Create your views here.
 @login_required
 def seleccionar_tipo_trabajo(request):
@@ -25,16 +42,17 @@ def seleccionar_tipo_trabajo(request):
 @login_required
 def ver_trabajos_pendientes(request):
     ESTADO = 'en_proceso'
-    trabajos = Trabajo.objects.filter(estado=ESTADO)
-    total_trabajos = trabajos.values('tipo_trabajo').annotate(total=Count('tipo_trabajo'))
-    
-    # cambiar los valores del nombre de los tipos de trabajo
-    TIPOS_DICT = {key: value for key, value in Trabajo.TIPOS}
-    # Reemplazar 'tipo_trabajo' en el queryset
-    for item in total_trabajos:
-        item['tipo_trabajo'] = TIPOS_DICT.get(item['tipo_trabajo'], item['tipo_trabajo'])
+    trabajos, total_trabajos = obtener_trabajos_por_estado(ESTADO)
   
     return render(request, 'trabajos/listar_trabajos.html', {'trabajos': trabajos, 'total_trabajos': total_trabajos, 'estado': ESTADO})
+
+@login_required
+def ver_trabajos_terminados(request):
+    ESTADO = 'terminado'
+    trabajos, total_trabajos = obtener_trabajos_por_estado(ESTADO)
+  
+    return render(request, 'trabajos/listar_trabajos.html', {'trabajos': trabajos, 'total_trabajos': total_trabajos, 'estado': ESTADO})
+    
 
 @login_required
 @require_POST
