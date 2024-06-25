@@ -39,6 +39,10 @@
             <i class="fa-solid fa-filter"></i>
             Buscar por Fecha
         </button>
+        <a href="{% url 'generar_pdf_trabajos_doctor' doctor.id %}?fecha_desde={{ fecha_desde }}&fecha_hasta={{ fecha_hasta }}" class="btn btn-secondary mb-4">
+            <i class="fa-solid fa-file-pdf"></i>
+            Generar PDF
+        </a>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>

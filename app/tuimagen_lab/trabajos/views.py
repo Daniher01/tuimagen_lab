@@ -2,13 +2,42 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from datetime import datetime, timedelta
 from django.utils.dateparse import parse_date
 from django.utils import timezone
 from django.db.models import Count
 from .models import Trabajo, TrabajoDoctor
 from doctores.models import Doctor
+from .render_pdf import render_to_pdf
+
+def obtener_trabajos_doctor(doctor, fecha_desde=None, fecha_hasta=None, estado='terminado'):
+    if fecha_desde and fecha_hasta:
+        # Convertir las fechas de cadena a objetos de fecha
+        fecha_desde = parse_date(fecha_desde)
+        fecha_hasta = parse_date(fecha_hasta)
+
+        # Convertir las fechas a naive datetimes al inicio y fin del día
+        fecha_desde = datetime.combine(fecha_desde, datetime.min.time())
+        fecha_hasta = datetime.combine(fecha_hasta, datetime.max.time())
+        
+        # Asegurarse de que las fechas son aware datetimes
+        fecha_desde = timezone.make_aware(fecha_desde, timezone.get_current_timezone())
+        fecha_hasta = timezone.make_aware(fecha_hasta, timezone.get_current_timezone())
+    else:
+        # Filtrar los trabajos del doctor en los últimos 30 días si no se proporcionan fechas
+        ahora = timezone.now()
+        hace_30_dias = ahora - timedelta(days=30)
+        fecha_desde = hace_30_dias
+        fecha_hasta = ahora
+
+    trabajos_doctor = TrabajoDoctor.objects.filter(
+        doctor=doctor,
+        trabajo__fecha_creacion__range=(fecha_desde, fecha_hasta),
+        trabajo__estado=estado
+    )
+
+    return trabajos_doctor, fecha_desde, fecha_hasta
 
 
 # Create your views here.
@@ -84,48 +113,41 @@ def terminar_trabajo(request):
 
 @login_required
 def trabajos_por_doctor(request, doctor_id):
-    ESTADO = 'terminado'
     doctor = get_object_or_404(Doctor, id=doctor_id)
-
+    
     fecha_desde = request.GET.get('fecha_desde')
     fecha_hasta = request.GET.get('fecha_hasta')
-    
-    if fecha_desde and fecha_hasta:
-        # Convertir las fechas de cadena a objetos de fecha
-        fecha_desde = parse_date(fecha_desde)
-        fecha_hasta = parse_date(fecha_hasta)
 
-        # Convertir las fechas a naive datetimes al inicio y fin del día
-        fecha_desde = datetime.combine(fecha_desde, datetime.min.time())
-        fecha_hasta = datetime.combine(fecha_hasta, datetime.max.time())
-        
-        # Asegurarse de que las fechas son aware datetimes
-        fecha_desde = timezone.make_aware(fecha_desde, timezone.get_current_timezone())
-        fecha_hasta = timezone.make_aware(fecha_hasta, timezone.get_current_timezone())
-        
-        # Filtrar los trabajos por las fechas proporcionadas
-        trabajos_doctor = TrabajoDoctor.objects.filter(
-            doctor=doctor,
-            trabajo__fecha_creacion__range=(fecha_desde, fecha_hasta),
-            trabajo__estado=ESTADO
-        )
-    else:
-        # Filtrar los trabajos del doctor en los últimos 30 días si no se proporcionan fechas
-        ahora = timezone.now()
-        hace_30_dias = ahora - timedelta(days=30)
-
-        trabajos_doctor = TrabajoDoctor.objects.filter(
-            doctor=doctor,
-            trabajo__fecha_creacion__range=(hace_30_dias, ahora),
-            trabajo__estado=ESTADO
-        )
+    trabajos_doctor, fecha_desde, fecha_hasta = obtener_trabajos_doctor(doctor, fecha_desde, fecha_hasta)
 
     context = {
         'doctor': doctor,
         'trabajos_doctor': trabajos_doctor,
         'fecha_desde': fecha_desde.strftime('%Y-%m-%d') if fecha_desde else '',
         'fecha_hasta': fecha_hasta.strftime('%Y-%m-%d') if fecha_hasta else '',
-        'doctor_id': doctor.id,  # Añadir doctor_id al contexto
     }
 
     return render(request, 'trabajos/trabajos_por_doctor.html', context)
+
+@login_required
+def generar_pdf_trabajos_doctor(request, doctor_id):
+    doctor = get_object_or_404(Doctor, id=doctor_id)
+    
+    fecha_desde = request.GET.get('fecha_desde')
+    fecha_hasta = request.GET.get('fecha_hasta')
+
+    trabajos_doctor, fecha_desde, fecha_hasta = obtener_trabajos_doctor(doctor, fecha_desde, fecha_hasta)
+
+    context = {
+        'doctor': doctor,
+        'trabajos_doctor': trabajos_doctor,
+        'fecha_desde': fecha_desde.strftime('%Y-%m-%d') if fecha_desde else '',
+        'fecha_hasta': fecha_hasta.strftime('%Y-%m-%d') if fecha_hasta else '',
+    }
+
+    pdf = render_to_pdf('trabajos/pdf_trabajos_por_doctor.html', context)
+    if pdf:
+        response = HttpResponse(pdf, content_type='application/pdf')
+        response['Content-Disposition'] = f'attachment; filename="trabajos_doctor_{doctor.name}.pdf"'
+        return response
+    return HttpResponse("Error al generar el PDF", status=400)
