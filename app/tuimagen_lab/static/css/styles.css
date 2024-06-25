@@ -51,3 +51,14 @@ header svg {
   align-items: center;
   height: 100%;
 }
+
+.dropdown-item-primary {
+  color: var(--color-tuimagen) !important; /* Utiliza la variable CSS de Bootstrap para el color primario */
+}
+
+.dropdown-item-primary:hover,
+.dropdown-item-primary:focus,
+.dropdown-item-primary:active {
+    color: var(--bs-white) !important; /* Color del texto cuando está activo */
+    background-color: var(--color-tuimagen) !important; /* Fondo primario cuando está activo */
+}

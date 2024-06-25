@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Buscar Doctor{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Buscar Doctor</h6>
+                </div>
+                <div class="card-body">
+                    {% if messages %}
+                        <div class="alert alert-danger" role="alert">
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    <form method="post" action="{% url 'buscar_doctor' %}">
+                        {% csrf_token %}
+                        <div class="mb-3">
+                            <label for="nombre_doctor" class="form-label">Nombre del Doctor</label>
+                            <input type="text" list="datalistDoctores" class="form-control" id="nombre_doctor" name="nombre_doctor" placeholder="Nombre del Doctor" required>
+                            <datalist id="datalistDoctores">
+                                {% for doctor in lista_doctores %}
+                                    <option value="{{ doctor.name }}">
+                                {% endfor %}
+                            </datalist>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Buscar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

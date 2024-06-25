@@ -4,19 +4,13 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from datetime import datetime, timedelta
+from django.contrib import messages
 from django.utils import timezone
 from django.utils.dateparse import parse_date
 from django.db.models import Count
-from .forms import TrabajoForm
-from fresado.forms import PiezaForm
-from pacientes.forms import PacienteForm
-from doctores.forms import DoctorForm
-from django.forms import inlineformset_factory
-from .models import Trabajo
-from fresado.models import TrabajoFresado, Pieza
-from pacientes.models import Paciente
+from .models import Trabajo, TrabajoDoctor
 from doctores.models import Doctor
-from pacientes.rut_generico import RutGenerator
+
 
 
 # Create your views here.
@@ -89,3 +83,26 @@ def terminar_trabajo(request):
         trabajo.save()
         return JsonResponse({'success': True})
     return JsonResponse({'success': False, 'error': 'El trabajo ya está terminado'})
+
+@login_required
+def trabajos_por_doctor(request, doctor_id):
+    doctor = get_object_or_404(Doctor, id=doctor_id)
+    trabajos_doctor = TrabajoDoctor.objects.filter(doctor=doctor)
+    context = {
+        'doctor': doctor,
+        'trabajos_doctor': trabajos_doctor,
+    }
+    return render(request, 'trabajos/trabajos_por_doctor.html', context)
+
+@login_required
+def buscar_doctor(request):
+    lista_doctores = Doctor.objects.all()
+    
+    if request.method == 'POST':
+        nombre_doctor = request.POST.get('nombre_doctor')
+        try:
+            doctor = Doctor.objects.get(name=nombre_doctor)
+            return redirect('trabajos_por_doctor', doctor_id=doctor.id)
+        except Doctor.DoesNotExist:
+            messages.error(request, 'No se encontró un doctor con ese nombre. Por favor, intente nuevamente.')
+    return render(request, 'trabajos/buscar_doctor.html', {'lista_doctores': lista_doctores})
