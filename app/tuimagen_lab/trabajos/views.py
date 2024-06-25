@@ -33,7 +33,7 @@ def obtener_trabajos_doctor(doctor, fecha_desde=None, fecha_hasta=None, estado='
 
     trabajos_doctor = TrabajoDoctor.objects.filter(
         doctor=doctor,
-        trabajo__fecha_creacion__range=(fecha_desde, fecha_hasta),
+        trabajo__fecha_termino__range=(fecha_desde, fecha_hasta),
         trabajo__estado=estado
     )
 
@@ -145,7 +145,7 @@ def generar_pdf_trabajos_doctor(request, doctor_id):
         'fecha_hasta': fecha_hasta.strftime('%Y-%m-%d') if fecha_hasta else '',
     }
 
-    pdf = render_to_pdf('trabajos/pdf_trabajos_por_doctor.html', context)
+    pdf = render_to_pdf('trabajos/pdf/pdf_trabajos_por_doctor.html', context)
     if pdf:
         response = HttpResponse(pdf, content_type='application/pdf')
         response['Content-Disposition'] = f'attachment; filename="trabajos_doctor_{doctor.name}.pdf"'
