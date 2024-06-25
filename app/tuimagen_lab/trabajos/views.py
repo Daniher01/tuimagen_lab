@@ -4,13 +4,11 @@ from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from datetime import datetime, timedelta
-from django.contrib import messages
-from django.utils import timezone
 from django.utils.dateparse import parse_date
+from django.utils import timezone
 from django.db.models import Count
 from .models import Trabajo, TrabajoDoctor
 from doctores.models import Doctor
-
 
 
 # Create your views here.
@@ -86,6 +84,7 @@ def terminar_trabajo(request):
 
 @login_required
 def trabajos_por_doctor(request, doctor_id):
+    ESTADO = 'terminado'
     doctor = get_object_or_404(Doctor, id=doctor_id)
 
     fecha_desde = request.GET.get('fecha_desde')
@@ -107,7 +106,8 @@ def trabajos_por_doctor(request, doctor_id):
         # Filtrar los trabajos por las fechas proporcionadas
         trabajos_doctor = TrabajoDoctor.objects.filter(
             doctor=doctor,
-            trabajo__fecha_creacion__range=(fecha_desde, fecha_hasta)
+            trabajo__fecha_creacion__range=(fecha_desde, fecha_hasta),
+            trabajo__estado=ESTADO
         )
     else:
         # Filtrar los trabajos del doctor en los últimos 30 días si no se proporcionan fechas
@@ -116,7 +116,8 @@ def trabajos_por_doctor(request, doctor_id):
 
         trabajos_doctor = TrabajoDoctor.objects.filter(
             doctor=doctor,
-            trabajo__fecha_creacion__range=(hace_30_dias, ahora)
+            trabajo__fecha_creacion__range=(hace_30_dias, ahora),
+            trabajo__estado=ESTADO
         )
 
     context = {
@@ -128,16 +129,3 @@ def trabajos_por_doctor(request, doctor_id):
     }
 
     return render(request, 'trabajos/trabajos_por_doctor.html', context)
-
-@login_required
-def buscar_doctor(request):
-    lista_doctores = Doctor.objects.all()
-    
-    if request.method == 'POST':
-        nombre_doctor = request.POST.get('nombre_doctor')
-        try:
-            doctor = Doctor.objects.get(name=nombre_doctor)
-            return redirect('trabajos_por_doctor', doctor_id=doctor.id)
-        except Doctor.DoesNotExist:
-            messages.error(request, 'No se encontró un doctor con ese nombre. Por favor, intente nuevamente.')
-    return render(request, 'trabajos/buscar_doctor.html', {'lista_doctores': lista_doctores})
