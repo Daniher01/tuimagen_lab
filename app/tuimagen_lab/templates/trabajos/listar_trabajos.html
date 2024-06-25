@@ -91,10 +91,13 @@
     </div>
 
     <div class="table-responsive">
+        {% if estado == 'terminado' %}
         <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#filtroFechasModal">
             <i class="fa-solid fa-filter"></i>
             Buscar por Fecha
         </button>
+        {% endif %}
+
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
