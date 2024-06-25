@@ -18,6 +18,10 @@
     </div>
 
     <div class="table-responsive">
+        <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#filtroFechasModal_trabajoDoctores">
+            <i class="fa-solid fa-filter"></i>
+            Buscar por Fecha
+        </button>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
@@ -44,6 +48,8 @@
         </table>
     </div>
 </div>
+
+{% include "trabajos/modals/buscar_por_fecha_doctores.html" %}
 {% endblock %}
 
 {% block scripts %}

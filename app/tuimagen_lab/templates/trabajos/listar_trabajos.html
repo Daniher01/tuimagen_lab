@@ -92,7 +92,7 @@
 
     <div class="table-responsive">
         {% if estado == 'terminado' %}
-        <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#filtroFechasModal">
+        <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#filtroFechasModal_trabajoTerminados">
             <i class="fa-solid fa-filter"></i>
             Buscar por Fecha
         </button>
@@ -165,7 +165,7 @@
 {% include "trabajos/modals/impresion_3d.html" %}
 {% include "trabajos/modals/fresado.html" %}
 {% include "trabajos/modals/escaneo_intraoral.html" %}
-{% include "trabajos/modals/buscar_por_fecha.html" %}
+{% include "trabajos/modals/buscar_por_fecha_terminados.html" %}
 
 {% endblock %}
 

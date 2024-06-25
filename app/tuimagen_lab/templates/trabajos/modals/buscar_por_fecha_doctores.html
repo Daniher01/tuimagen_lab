@@ -1,0 +1,30 @@
+<!-- Modal -->
+<div class="modal fade" id="filtroFechasModal_trabajoDoctores" tabindex="-1" aria-labelledby="filtroFechasModal_trabajoTerminados" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filtroFechasModalLabel">Filtrar por Fecha</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="filtro-fechas" method="get" action="{% url 'trabajos_por_doctor' doctor_id %}">
+                    <div class="row align-items-end">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input type="date" class="form-control" id="fecha_desde" name="fecha_desde" required>
+                                <label for="fecha_desde">Fecha desde</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="form-floating">
+                                <input type="date" class="form-control" id="fecha_hasta" name="fecha_hasta" required>
+                                <label for="fecha_hasta">Fecha hasta</label>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100" type="submit">Filtrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
