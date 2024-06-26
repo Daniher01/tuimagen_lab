@@ -54,14 +54,20 @@
     </div>
 
     <div class="table-responsive">
-        <button type="button" class="btn btn-primary mb-4" data-bs-toggle="modal" data-bs-target="#filtroFechasModal_trabajoDoctores">
-            <i class="fa-solid fa-filter"></i>
-            Buscar por Fecha
-        </button>
-        <button id="generatePDF" class="btn btn-secondary mb-4">
-            <i class="fa-solid fa-file-pdf"></i>
-            Generar PDF
-        </button>
+        <div class="d-flex justify-content-between mb-4">
+            <button id="generatePDF" class="btn btn-secondary w-25">
+                <i class="fa-solid fa-file-pdf"></i>
+                Generar PDF
+            </button>
+            <button type="button" class="btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#filtroFechasModal_trabajoDoctores">
+                <i class="fa-solid fa-filter"></i>
+                Buscar por Fecha
+            </button>
+            <button id="marcarPagado" class="btn btn-success w-25">
+                <i class="fa-solid fa-check"></i>
+                Marcar como Pagado
+            </button>
+        </div>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
@@ -104,5 +110,5 @@
     <!-- Page level custom scripts -->
     <script src="{% static "js/datatable.js" %}"></script>
     <script src="{% static "js/generate_pdf.js" %}"></script>
-
+    <script src="{% static "js/marcar_trabajos_pagados.js" %}"></script>
 {% endblock %}
