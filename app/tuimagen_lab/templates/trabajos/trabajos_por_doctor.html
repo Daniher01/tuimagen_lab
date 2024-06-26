@@ -39,10 +39,14 @@
             <i class="fa-solid fa-filter"></i>
             Buscar por Fecha
         </button>
-        <a href="{% url 'generar_pdf_trabajos_doctor' doctor.id %}?fecha_desde={{ fecha_desde }}&fecha_hasta={{ fecha_hasta }}" class="btn btn-secondary mb-4">
+        {% comment %} <a href="{% url 'generar_pdf_trabajos_doctor' doctor.id %}?fecha_desde={{ fecha_desde }}&fecha_hasta={{ fecha_hasta }}" class="btn btn-secondary mb-4">
             <i class="fa-solid fa-file-pdf"></i>
             Generar PDF
-        </a>
+        </a> {% endcomment %}
+        <button id="generatePDF" class="btn btn-secondary mb-4">
+            <i class="fa-solid fa-file-pdf"></i>
+            Generar PDF
+        </button>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
                 <tr>
@@ -78,6 +82,12 @@
     <script src="{% static "vendor/datatables/jquery.dataTables.min.js" %}"></script>
     <script src="{% static "vendor/datatables/dataTables.bootstrap4.min.js" %}"></script>
 
+    <!-- jsPDF desde CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+    <!-- jsPDF autoTable desde CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
     <!-- Page level custom scripts -->
     <script src="{% static "js/datatable.js" %}"></script>
+    <script src="{% static "js/generate_pdf.js" %}"></script>
+
 {% endblock %}
