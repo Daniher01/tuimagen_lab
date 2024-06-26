@@ -1,15 +1,14 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse
 from datetime import datetime, timedelta
 from django.utils.dateparse import parse_date
 from django.utils import timezone
 from django.db.models import Count
 from .models import Trabajo, TrabajoDoctor
 from doctores.models import Doctor
-from .render_pdf import render_to_pdf
 
 def obtener_trabajos_doctor(doctor, fecha_desde=None, fecha_hasta=None, estado='terminado'):
     if fecha_desde and fecha_hasta:
@@ -128,26 +127,3 @@ def trabajos_por_doctor(request, doctor_id):
     }
 
     return render(request, 'trabajos/trabajos_por_doctor.html', context)
-
-@login_required
-def generar_pdf_trabajos_doctor(request, doctor_id):
-    doctor = get_object_or_404(Doctor, id=doctor_id)
-    
-    fecha_desde = request.GET.get('fecha_desde')
-    fecha_hasta = request.GET.get('fecha_hasta')
-
-    trabajos_doctor, fecha_desde, fecha_hasta = obtener_trabajos_doctor(doctor, fecha_desde, fecha_hasta)
-
-    context = {
-        'doctor': doctor,
-        'trabajos_doctor': trabajos_doctor,
-        'fecha_desde': fecha_desde.strftime('%Y-%m-%d') if fecha_desde else '',
-        'fecha_hasta': fecha_hasta.strftime('%Y-%m-%d') if fecha_hasta else '',
-    }
-
-    pdf = render_to_pdf('trabajos/pdf/pdf_trabajos_por_doctor.html', context)
-    if pdf:
-        response = HttpResponse(pdf, content_type='application/pdf')
-        response['Content-Disposition'] = f'attachment; filename="trabajos_doctor_{doctor.name}.pdf"'
-        return response
-    return HttpResponse("Error al generar el PDF", status=400)

@@ -1,8 +1,7 @@
 document.getElementById('generatePDF').addEventListener('click', function () {
-    const { jsPDF } = window.jspdf;
 
     // Obtener el nombre del doctor
-    const doctorName = 'asdasd'; //document.getElementById('doctor-name').innerText;
+    const doctorName = document.getElementById('nombreDoctor').innerText //document.getElementById('doctor-name').innerText;
 
     // Obtener el SVG como cadena
     fetch(`${window.location.origin}/static/images/logo grande.svg`)
@@ -34,7 +33,7 @@ document.getElementById('generatePDF').addEventListener('click', function () {
         });
 });
 
-function generatePDF(doctorName, imgData) {
+function generatePDF(doctorName, imgData = null) {
     const { jsPDF } = window.jspdf;
 
     // Crear un nuevo documento PDF

@@ -12,9 +12,6 @@
 {% block content %}
 <div class="container-fluid">
     <div class="row mb-4">
-        {% comment %} <div class="col-12">
-            <h2 class="text-primary">Trabajos de {{ doctor.name }}</h2>
-        </div> {% endcomment %}
         <div class="col-md-3 mb-4">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
@@ -23,7 +20,7 @@
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Trabajos de
                             </div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">{{doctor.name}}</div>
+                            <div id="nombreDoctor" class="h5 mb-0 font-weight-bold text-gray-800">{{doctor.name}}</div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-address-card fa-2x text-gray-300"></i>
@@ -39,10 +36,6 @@
             <i class="fa-solid fa-filter"></i>
             Buscar por Fecha
         </button>
-        {% comment %} <a href="{% url 'generar_pdf_trabajos_doctor' doctor.id %}?fecha_desde={{ fecha_desde }}&fecha_hasta={{ fecha_hasta }}" class="btn btn-secondary mb-4">
-            <i class="fa-solid fa-file-pdf"></i>
-            Generar PDF
-        </a> {% endcomment %}
         <button id="generatePDF" class="btn btn-secondary mb-4">
             <i class="fa-solid fa-file-pdf"></i>
             Generar PDF
