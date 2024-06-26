@@ -1,8 +1,10 @@
 document.getElementById('generatePDF').addEventListener('click', function () {
 
     // Obtener el nombre del doctor
-    const doctorName = document.getElementById('nombreDoctor').innerText //document.getElementById('doctor-name').innerText;
+    const doctorName = document.getElementById('nombreDoctor').innerText
     const totalTrabajos = document.querySelectorAll('#dataTable tbody tr').length;
+    const fechaDesde = document.getElementById('fecha_desde').innerText;
+    const fechaHasta = document.getElementById('fecha_hasta').innerText;
 
     // Obtener el SVG como cadena
     fetch(`${window.location.origin}/static/images/logotipo.svg`)
@@ -17,25 +19,25 @@ document.getElementById('generatePDF').addEventListener('click', function () {
             img.onload = function () {
                 ctx.drawImage(img, 0, 0);
                 const imgData = canvas.toDataURL('image/png');
-                generatePDF({doctorName, totalTrabajos}, imgData);
+                generatePDF({ doctorName, totalTrabajos: totalTrabajos, fecha_desde: fechaDesde, fecha_hasta: fechaHasta }, imgData);
                 URL.revokeObjectURL(url);
             };
 
             img.onerror = function () {
                 console.warn('No se pudo cargar la imagen. Generando PDF sin la imagen.');
-                generatePDF({doctorName, totalTrabajos}, null);
+                generatePDF({ doctorName, totalTrabajos: totalTrabajos, fecha_desde: fechaDesde, fecha_hasta: fechaHasta }, null);
             };
 
             img.src = url;
         })
         .catch(() => {
             console.warn('No se pudo cargar la imagen. Generando PDF sin la imagen.');
-            generatePDF({doctorName, totalTrabajos}, null);
+            generatePDF({ doctorName, totalTrabajos: totalTrabajos, fecha_desde: fechaDesde, fecha_hasta: fechaHasta }, null);
         });
 });
 
 
-function generatePDF({ doctorName, totalTrabajos }, imgData = null) {
+function generatePDF({ doctorName, totalTrabajos, fecha_desde, fecha_hasta }, imgData = null) {
     const { jsPDF } = window.jspdf;
     const date = new Date().toLocaleDateString();
     const formattedDate = new Date().toISOString().split('T')[0];
@@ -106,8 +108,11 @@ function generatePDF({ doctorName, totalTrabajos }, imgData = null) {
     doc.setFontSize(10);
     doc.text('Este es un documento de referencia, no es válido como Factura.', 105, doc.internal.pageSize.height - 10, { align: 'center' });
 
+    doc.setFontSize(8);
+    doc.text(`Trabajos terminados entre ${fecha_desde} y ${fecha_hasta}`, 105, doc.internal.pageSize.height - 6, { align: 'center' });
+
     // Guardar el PDF con el nombre `trabajos_nombredoctor_fecha`
-    doc.save(`trabajos_${doctorName}_${formattedDate}.pdf`);
+    doc.save(`cuenta_de_cobro_${doctorName}_${formattedDate}.pdf`);
 }
 
 
