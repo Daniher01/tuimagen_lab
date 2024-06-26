@@ -33,8 +33,13 @@ document.getElementById('generatePDF').addEventListener('click', function () {
         });
 });
 
+
 function generatePDF(doctorName, imgData = null) {
     const { jsPDF } = window.jspdf;
+
+    // Obtener el color de la variable CSS
+    const color_tuimagen = getComputedStyle(document.documentElement)
+        .getPropertyValue('--color-tuimagen').trim();
 
     // Crear un nuevo documento PDF
     const doc = new jsPDF();
@@ -46,9 +51,11 @@ function generatePDF(doctorName, imgData = null) {
 
     // Agregar el título y la tabla
     doc.setFontSize(22);
+    doc.setTextColor(color_tuimagen); // Establecer el color del texto del título
     doc.text('Tu Imagen Lab', 20, 20);
 
     doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0); // Restablecer el color del texto a negro
     doc.text(`Trabajos de ${doctorName}`, 20, 40);
 
     const rows = [];
@@ -61,9 +68,15 @@ function generatePDF(doctorName, imgData = null) {
     doc.autoTable({
         head: [['N°', 'Nombre del Paciente', 'Fecha de Entrega', 'Tipo de Trabajo', 'Estado', 'Pagado']],
         body: rows,
-        startY: 50
+        startY: 50,
+        headStyles: { // Estilos para el encabezado de la tabla
+            fillColor: color_tuimagen, // Color de fondo del encabezado
+            textColor: '#ffffff', // Color del texto del encabezado
+            fontStyle: 'bold' // Estilo de la fuente del encabezado
+        },
     });
 
     // Guardar el PDF
-    doc.save('trabajos_doctor.pdf');
+    doc.save(`trabajos_${doctorName}`);
 }
+

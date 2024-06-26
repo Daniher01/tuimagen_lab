@@ -122,8 +122,8 @@ def trabajos_por_doctor(request, doctor_id):
     context = {
         'doctor': doctor,
         'trabajos_doctor': trabajos_doctor,
-        'fecha_desde': fecha_desde.strftime('%Y-%m-%d') if fecha_desde else '',
-        'fecha_hasta': fecha_hasta.strftime('%Y-%m-%d') if fecha_hasta else '',
+        'fecha_desde': fecha_desde.strftime('%d-%m-%Y') if fecha_desde else '',
+        'fecha_hasta': fecha_hasta.strftime('%d-%m-%Y') if fecha_hasta else '',
     }
 
     return render(request, 'trabajos/trabajos_por_doctor.html', context)
