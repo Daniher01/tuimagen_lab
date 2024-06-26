@@ -29,21 +29,22 @@ $(document).ready(function() {
                                 text: 'El trabajo ha sido marcado como terminado.',
                                 icon: 'success',
                                 confirmButtonText: 'OK',
-                                html: "Esta ventana se cerrará en <b></b> millisegundos.",
+                                html: "Esta ventana se cerrará en <b></b> segundos.",
                                 timer: 2000,
                                 timerProgressBar: true,
                                 didOpen: () => {
-                                  Swal.showLoading();
-                                  const timer = Swal.getPopup().querySelector("b");
-                                  timerInterval = setInterval(() => {
-                                    timer.textContent = `${Swal.getTimerLeft()}`;
-                                  }, 100);
+                                    Swal.showLoading();
+                                    const timer = Swal.getPopup().querySelector("b");
+                                    timerInterval = setInterval(() => {
+                                        timer.textContent = (Swal.getTimerLeft() / 1000).toFixed(0); // Convertir a segundos y redondear
+                                    }, 100);
                                 },
                                 allowOutsideClick: false, // No permitir clics fuera del modal
                                 willClose: () => {
+                                    clearInterval(timerInterval); // Asegurarse de limpiar el intervalo
                                     location.reload(); // Recargar la página al cerrar el modal
                                 },
-                            });
+                            });                            
                         } else {
                             Swal.fire({
                                 title: 'Error',

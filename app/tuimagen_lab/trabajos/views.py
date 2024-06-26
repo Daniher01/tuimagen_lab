@@ -127,3 +127,17 @@ def trabajos_por_doctor(request, doctor_id):
     }
 
     return render(request, 'trabajos/trabajos_por_doctor.html', context)
+
+@csrf_exempt
+def marcar_pagado(request):
+    if request.method == 'POST':
+        doctor_name = request.POST.get('doctorName')
+        trabajos_ids = request.POST.getlist('trabajosIds[]')
+        
+        doctor = get_object_or_404(Doctor, name=doctor_name)
+        trabajos = TrabajoDoctor.objects.filter(trabajo__id__in=trabajos_ids, doctor=doctor)
+
+        trabajos.update(pagado=True)
+
+        return JsonResponse({'message': 'Trabajos marcados como pagados exitosamente'})
+    return JsonResponse({'error': 'Método no permitido'}, status=405)
