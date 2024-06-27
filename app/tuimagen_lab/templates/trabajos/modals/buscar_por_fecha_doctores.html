@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form id="filtro-fechas" method="get" action="{% url 'trabajos_por_doctor' doctor.id %}">
+                <form id="filtro-fechas" method="get" action="{% url 'trabajos_por_pagar_por_doctor' doctor.id %}">
                     <div class="row align-items-end">
                         <div class="col-md-6 mb-3">
                             <div class="form-floating">

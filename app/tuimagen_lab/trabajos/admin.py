@@ -9,6 +9,6 @@ class TrabajoAdmin(admin.ModelAdmin):
 
 @admin.register(TrabajoDoctor)
 class TrabajoDoctorAdmin(admin.ModelAdmin):
-    list_display = ('doctor', 'trabajo', 'pagado')
+    list_display = ('doctor', 'trabajo', 'pagado', 'fecha_pago')
     list_filter = ('doctor', 'pagado')
     search_fields = ('doctor__name', 'trabajo__tipo_trabajo')

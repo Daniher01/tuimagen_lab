@@ -30,6 +30,7 @@ class TrabajoDoctor(models.Model):
     doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE, related_name='trabajos')
     trabajo = models.ForeignKey(Trabajo, on_delete=models.CASCADE)
     pagado = models.BooleanField(default=False)
+    fecha_pago = models.DateField(null=True)
 
     def __str__(self):
         return f'{self.doctor.name} - {self.trabajo}'

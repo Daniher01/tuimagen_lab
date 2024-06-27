@@ -111,19 +111,43 @@ def terminar_trabajo(request):
     return JsonResponse({'success': False, 'error': 'El trabajo ya está terminado'})
 
 @login_required
-def trabajos_por_doctor(request, doctor_id):
+def trabajos_por_pagar_por_doctor(request, doctor_id):
     doctor = get_object_or_404(Doctor, id=doctor_id)
     
     fecha_desde = request.GET.get('fecha_desde')
     fecha_hasta = request.GET.get('fecha_hasta')
 
     trabajos_doctor, fecha_desde, fecha_hasta = obtener_trabajos_doctor(doctor, fecha_desde, fecha_hasta)
+    # filtra solo por los trabajos no pagos
+    trabajos_doctor = trabajos_doctor.filter(pagado=False)
 
     context = {
         'doctor': doctor,
         'trabajos_doctor': trabajos_doctor,
         'fecha_desde': fecha_desde.strftime('%d-%m-%Y') if fecha_desde else '',
         'fecha_hasta': fecha_hasta.strftime('%d-%m-%Y') if fecha_hasta else '',
+        'pagados': False
+    }
+
+    return render(request, 'trabajos/trabajos_por_doctor.html', context)
+
+@login_required
+def trabajos_pagados_por_doctor(request, doctor_id):
+    doctor = get_object_or_404(Doctor, id=doctor_id)
+    
+    fecha_desde = request.GET.get('fecha_desde')
+    fecha_hasta = request.GET.get('fecha_hasta')
+
+    trabajos_doctor, fecha_desde, fecha_hasta = obtener_trabajos_doctor(doctor, fecha_desde, fecha_hasta)
+    # filtra solo por los trabajos no pagos
+    trabajos_doctor = trabajos_doctor.filter(pagado=True)
+
+    context = {
+        'doctor': doctor,
+        'trabajos_doctor': trabajos_doctor,
+        'fecha_desde': fecha_desde.strftime('%d-%m-%Y') if fecha_desde else '',
+        'fecha_hasta': fecha_hasta.strftime('%d-%m-%Y') if fecha_hasta else '',
+        'pagados': True
     }
 
     return render(request, 'trabajos/trabajos_por_doctor.html', context)
@@ -136,8 +160,8 @@ def marcar_pagado(request):
         
         doctor = get_object_or_404(Doctor, name=doctor_name)
         trabajos = TrabajoDoctor.objects.filter(trabajo__id__in=trabajos_ids, doctor=doctor)
-
-        trabajos.update(pagado=True)
+        
+        trabajos.update(pagado=True, fecha_pago=timezone.now())
 
         return JsonResponse({'message': 'Trabajos marcados como pagados exitosamente'})
     return JsonResponse({'error': 'Método no permitido'}, status=405)

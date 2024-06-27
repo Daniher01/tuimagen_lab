@@ -18,18 +18,18 @@
                             {% endfor %}
                         </div>
                     {% endif %}
-                    <form method="post" action="{% url 'buscar_doctor' %}">
-
+                    <form method="post" action="{% url 'buscar_doctor' %}?pagado={{ pagado|yesno:"true,false" }}">
                         {% csrf_token %}
                         <div class="form-floating mb-3">
                             <input type="text" list="datalistDoctores" class="form-control" id="nombre_doctor" name="nombre_doctor" placeholder="Nombre del Doctor" required>
                             <label for="nombre_doctor">Nombre del Doctor</label>
                             <datalist id="datalistDoctores">
                             {% for doctor in lista_doctores %}
-                                <option value="{{doctor.name}}">
+                                <option value="{{ doctor.name }}">
                             {% endfor %}
                             </datalist>
                         </div>
+                        <input type="hidden" name="pagado" value="{{ pagado|yesno:"true,false" }}">
                         <button type="submit" class="btn btn-primary w-100">Buscar</button>
                     </form>
                 </div>

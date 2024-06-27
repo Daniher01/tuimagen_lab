@@ -31,8 +31,9 @@
                     Terminados
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item dropdown-item-primary" href="{% url 'trabajos_terminados' %}">Terminados</a></li>
-                    <li><a class="dropdown-item dropdown-item-primary" href="{% url 'buscar_doctor' %}">Por Doctor</a></li>
+                    <li><a class="dropdown-item dropdown-item-primary" href="{% url 'trabajos_terminados' %}">Todos</a></li>
+                    <li><a class="dropdown-item dropdown-item-primary" href="{% url 'buscar_doctor' %}?pagado=false">Por Pagar</a></li>
+                    <li><a class="dropdown-item dropdown-item-primary" href="{% url 'buscar_doctor' %}?pagado=true">Pagados</a></li>
                 </ul>
             </li>
             

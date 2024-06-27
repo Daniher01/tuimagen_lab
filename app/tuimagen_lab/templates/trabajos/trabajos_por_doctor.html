@@ -55,17 +55,19 @@
 
     <div class="table-responsive">
         <div class="d-flex justify-content-between mb-4">
-            <button id="generatePDF" class="btn btn-secondary w-25">
-                <i class="fa-solid fa-file-pdf"></i>
-                Generar PDF
-            </button>
             <button type="button" class="btn btn-primary w-25" data-bs-toggle="modal" data-bs-target="#filtroFechasModal_trabajoDoctores">
                 <i class="fa-solid fa-filter"></i>
                 Buscar por Fecha
             </button>
+            {% if not pagados %}
             <button id="marcarPagado" class="btn btn-success w-25">
                 <i class="fa-solid fa-check"></i>
                 Marcar como Pagado
+            </button>
+            {% endif %}
+            <button id="generatePDF" class="btn btn-secondary w-25">
+                <i class="fa-solid fa-file-pdf"></i>
+                Generar PDF
             </button>
         </div>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -73,7 +75,11 @@
                 <tr>
                     <th>N°</th>
                     <th>Nombre del Paciente</th>
+                    {% if pagados %}
+                    <th>Fecha de Pago</th>
+                    {% else  %}
                     <th>Fecha de Entrega</th>
+                    {% endif %}
                     <th>Tipo de Trabajo</th>
                     <th>Estado</th>
                     <th>Pagado</th>
@@ -84,7 +90,11 @@
                     <tr>
                         <td>{{ trabajo_doctor.trabajo.id }}</td>
                         <td>{{ trabajo_doctor.trabajo.paciente.name }}</td>
+                        {% if pagados %}
+                        <td>{{ trabajo_doctor.fecha_pago }}</td>
+                        {% else %}
                         <td>{{ trabajo_doctor.trabajo.fecha_entrega }}</td>
+                        {% endif %}
                         <td>{{ trabajo_doctor.trabajo.get_tipo_trabajo_display }}</td>
                         <td>{{ trabajo_doctor.trabajo.get_estado_display }}</td>
                         <td>{{ trabajo_doctor.pagado|yesno:"Sí,No" }}</td>
