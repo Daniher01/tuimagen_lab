@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'bootstrap5',
     'fontawesomefree',
     # apps personalizadas
-    'gestion',
     'pacientes',
     'doctores',
     'trabajos',
