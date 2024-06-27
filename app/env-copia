@@ -1,0 +1,14 @@
+DB_NAME='nombre_de_tu_base_de_datos' # Nombre de la base de datos
+DB_USER='tu_usuario_de_bd' # Nombre de usuario para ingresar a la base de datos
+DB_PASSWORD='tu_contraseña_de_bd' # Contraseña del usuario para ingresar a la base de datos
+DB_HOST='tu_host_de_bd.postgres.database.azure.com' # Nombre del servidor de base de datos
+DB_PORT='5432' # Puerto habilitado para la base de datos
+
+# Django Secret Key
+SECRET_KEY='django-insecure-c=gh%gt1p9pga#)cpk+7x679h!(j6$fu_!g(f$j89f@m!^%3aa' # Clave secreta recomendada por Django
+
+# Django Debug Mode
+DEBUG=True # True para desarrollo, False para producción
+
+# Allowed Hosts
+ALLOWED_HOSTS='localhost,127.0.0.1' #localhost,127.0.0.1 para pruebas locales, para producción, agrega el dominio

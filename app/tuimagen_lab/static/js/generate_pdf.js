@@ -5,7 +5,7 @@ document.getElementById('generatePDF').addEventListener('click', function () {
     const totalTrabajos = document.querySelectorAll('#dataTable tbody tr').length;
     const fechaDesde = document.getElementById('fecha_desde').innerText;
     const fechaHasta = document.getElementById('fecha_hasta').innerText;
-
+    console.log(window.location.origin);
     // Obtener el SVG como cadena
     fetch(`${window.location.origin}/static/images/logotipo.svg`)
         .then(response => response.text())
