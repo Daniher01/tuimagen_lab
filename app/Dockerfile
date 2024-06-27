@@ -20,4 +20,6 @@ COPY ./tuimagen_lab /app/
 # RUN pipenv run python manage.py collectstatic --noinput
 
 # Run the application
-CMD ["pipenv", "run", "python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD pipenv run python manage.py migrate && pipenv run python manage.py runserver 0.0.0.0:8000
+
+EXPOSE 8000
