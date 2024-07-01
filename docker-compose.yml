@@ -4,7 +4,9 @@ services:
   web:
     container_name: web
     build: ./app
-    command: pipenv run python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "pipenv run python manage.py migrate &&
+             pipenv run python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./app/tuimagen_lab:/app
     env_file:
