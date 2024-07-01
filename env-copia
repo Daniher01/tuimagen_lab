@@ -1,4 +1,5 @@
 DATABASE_ENGINE=django.db.backends.mysql
+DATABASE_ROOT_PASSWORD=rootpassword
 DATABASE_NAME=tuimagen_lab
 DATABASE_USER=user
 DATABASE_PASSWORD=password
@@ -9,7 +10,7 @@ DATABASE_PORT=3306
 SECRET_KEY='django-insecure-c=gh%gt1p9pga#)cpk+7x679h!(j6$fu_!g(f$j89f@m!^%3aa' # Clave secreta recomendada por Django
 
 # Django Debug Mode
-DEBUG=True # True para desarrollo, False para producción
+DEBUG=False # True para desarrollo, False para producción
 
 # Allowed Hosts
-ALLOWED_HOSTS='localhost,127.0.0.1' #localhost,127.0.0.1 para pruebas locales, para producción, agrega el dominio
+ALLOWED_HOSTS='localhost,127.0.0.1' #localhost,127.0.0.1 para pruebas locales, para producción agrega el dominio
