@@ -51,7 +51,7 @@ services:
 
   phpmyadmin:
     container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin:latest
+    image: linuxserver/phpmyadmin
     ports:
       - "8080:80"
     env_file:
