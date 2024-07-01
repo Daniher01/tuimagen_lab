@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  web:
+    container_name: web
+    build: ./app
+    command: pipenv run python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./app/tuimagen_lab:/app
+    env_file:
+      - .env
+    restart: unless-stopped
+    depends_on:
+      - db
+    networks:
+      - tuimagen_net
+
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./app/tuimagen_lab/staticfiles:/app/static
+      # - ./nginx/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - web
+    restart: unless-stopped
+    networks:
+      - tuimagen_net
+
+  db:
+    container_name: db
+    image: mysql:8.0
+    volumes:
+      - mysql-data:/var/lib/mysql
+    env_file:
+      - .env
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+      MYSQL_USER: ${DATABASE_USER}
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+    restart: unless-stopped
+    networks:
+      - tuimagen_net
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8080:80"
+    env_file:
+      - .env
+    environment:
+      PMA_HOST: db
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+    depends_on:
+      - db
+    restart: unless-stopped
+    networks:
+      - tuimagen_net
+
+volumes:
+  mysql-data:
+
+networks:
+  tuimagen_net:
+    driver: bridge

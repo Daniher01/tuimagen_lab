@@ -9,6 +9,7 @@ pandas = "*"
 django-bootstrap5 = "*"
 django-bootstrap-v5 = "*"
 fontawesomefree = "*"
+mysqlclient = "*"
 
 [dev-packages]
 

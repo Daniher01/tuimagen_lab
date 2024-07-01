@@ -1,0 +1,75 @@
+:root {
+    --color-tuimagen: #892a7d;
+    --color-texto: #fff;
+  }
+
+  
+header svg {
+  display: block;
+  margin: 0 auto 0.25rem; /* mb-1 */
+  height: 24px; /* height="24" */
+  width: 24px; /* width="24" */
+  fill: var(--color-texto) !important; /* Aplica el color al relleno del SVG */
+  stroke: var(--color-texto) !important; /* Aplica el color al trazo del SVG */
+}
+
+  .bg-tuimagen
+ {
+    background-color: var(--color-tuimagen) !important;
+    color: var(--color-texto) !important;
+}
+
+.bg-tuimagen * {
+  color: var(--color-texto) !important;
+}
+
+/* Sobrescribir los estilos de Bootstrap */
+.btn-primary {
+  color: var(--color-texto) !important;
+  background-color: var(--color-tuimagen) !important;
+  border-color: var(--color-tuimagen) !important;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
+  color: var(--color-texto) !important;
+  background-color: #751865 !important; /* Un tono más oscuro, puedes ajustar este valor */
+  border-color: #751865 !important; /* Un tono más oscuro, puedes ajustar este valor */
+}
+
+.btn-outline-light:hover {
+  color: black !important; /* Cambia el color del texto al pasar el ratón */
+}
+
+.btn-outline-light:hover * {
+  color: black !important; /* Cambia el color del texto al pasar el ratón */
+}
+
+/* clase para centrar el contenido verticalmente */
+.center-login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.dropdown-item-primary {
+  color: var(--color-tuimagen) !important; /* Utiliza la variable CSS de Bootstrap para el color primario */
+}
+
+.dropdown-item-primary:hover,
+.dropdown-item-primary:focus,
+.dropdown-item-primary:active {
+    color: var(--bs-white) !important; /* Color del texto cuando está activo */
+    background-color: var(--color-tuimagen) !important; /* Fondo primario cuando está activo */
+}
+
+/* Estilos para el submenú */
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -1px;
+}
