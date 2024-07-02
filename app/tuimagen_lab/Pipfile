@@ -4,6 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+django = "*"
+pandas = "*"
+django-bootstrap5 = "*"
+django-bootstrap-v5 = "*"
+fontawesomefree = "*"
+mysqlclient = "*"
+python-dotenv = "*"
 
 [dev-packages]
 

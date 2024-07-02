@@ -9,7 +9,7 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
 # Install dependencies
-COPY Pipfile Pipfile.lock /app/
+COPY tuimagen_lab/Pipfile tuimagen_lab/Pipfile.lock /app/
 RUN pip install pipenv && pipenv install --deploy --ignore-pipfile
 
 # Copy project
