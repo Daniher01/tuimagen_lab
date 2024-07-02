@@ -65,14 +65,15 @@
                 Marcar como Pagado
             </button>
             {% endif %}
-            <button id="generateExcel" class="btn btn-secondary w-25">
-                <i class="fa-solid fa-file-pdf"></i>
-                Generar Excel
-            </button>
-            <button id="generatePDF" class="btn btn-secondary w-25">
-                <i class="fa-solid fa-file-pdf"></i>
-                Generar PDF
-            </button>
+            <div class="btn-group w-25">
+                <button type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fa-solid fa-file"></i> Exportar
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="#" id="generateExcel"><i class="fa-solid fa-file-excel"></i> Excel</a>
+                    <a class="dropdown-item" href="#" id="generatePDF"><i class="fa-solid fa-file-pdf"></i> PDF</a>
+                </div>
+            </div>
         </div>
         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
             <thead>
