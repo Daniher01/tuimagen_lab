@@ -26,7 +26,7 @@ document.getElementById('generateExcel').addEventListener('click', function () {
     var ws = XLSX.utils.aoa_to_sheet(data);
     
     // Añadir hoja al libro de trabajo
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet JS");
+    XLSX.utils.book_append_sheet(wb, ws, "Trabajos Doctores");
     
     // Generar archivo Excel
     var wbout = XLSX.write(wb, {bookType: 'xlsx', type: 'binary'});
