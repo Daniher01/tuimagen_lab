@@ -1,7 +1,12 @@
 # create_superuser.py
 import os
+import django
 from django.contrib.auth import get_user_model
 from django.core.management import execute_from_command_line
+
+# Asegúrate de configurar Django antes de usar sus funcionalidades
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tuimagen_lab.settings')
+django.setup()
 
 User = get_user_model()
 
