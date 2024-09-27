@@ -9,11 +9,11 @@ ENV PYTHONUNBUFFERED 1
 WORKDIR /app
 
 # Install dependencies
-COPY tuimagen_lab/Pipfile tuimagen_lab/Pipfile.lock /app/
+COPY app/tuimagen_lab/Pipfile app/tuimagen_lab/Pipfile.lock /app/
 RUN pip install pipenv && pipenv install --deploy --ignore-pipfile
 
 # Copy project
-COPY ./tuimagen_lab /app/
+COPY ./app/tuimagen_lab /app/
 
 # # Collect static files
 # RUN mkdir -p /app/staticfiles
