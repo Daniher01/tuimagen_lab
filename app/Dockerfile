@@ -19,7 +19,9 @@ COPY ./tuimagen_lab /app/
 # RUN mkdir -p /app/staticfiles
 # RUN pipenv run python manage.py collectstatic --noinput
 
-# Run the application
-CMD pipenv run python manage.py migrate && pipenv run python manage.py runserver 0.0.0.0:8000
+# Run the application with Gunicorn and create superuser
+CMD pipenv run python manage.py migrate && \
+    pipenv run python create_superuser.py && \
+    pipenv run gunicorn tuimagen_lab.wsgi:application --bind 0.0.0.0:8000
 
 EXPOSE 8000

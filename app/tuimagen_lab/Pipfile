@@ -11,6 +11,8 @@ django-bootstrap-v5 = "*"
 fontawesomefree = "*"
 mysqlclient = "*"
 python-dotenv = "*"
+whitenoise = "*"
+gunicorn = "*"
 
 [dev-packages]
 
