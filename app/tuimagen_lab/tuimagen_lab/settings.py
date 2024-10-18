@@ -161,6 +161,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CSRF_TRUSTED_ORIGINS = [
     # agregar los hosts
     'http://localhost',
+    'https://sistema.tuimagenlab.cl'
 ]
 
 MESSAGE_TAGS = {
